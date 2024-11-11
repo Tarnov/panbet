@@ -1,0 +1,39 @@
+<!-- Main Config -->
+<config>
+	<properties>
+		<entry>
+			<string>urlProvider</string>
+			<string>http://127.0.0.1:8401/panbetserver/request</string>
+		</entry>
+		<entry>
+			<string>factoryType</string>
+			<string>LocalFactory</string><!-- RemoteFactory | LocalFactory -->
+		</entry>
+		<entry>
+			<string>commandRepeatCount</string>
+			<string>3</string>
+		</entry>
+        <entry>
+            <string>initializationTimeout</string>
+            <string>600</string>
+        </entry>
+        <entry>
+            <string>traderStatisticsTimeout</string>
+            <string>900</string>
+        </entry>
+        <!-- Тайм-аут транзакции приема ставки-->
+        <entry>
+            <string>placeTicketTimeout</string>
+            <string>20</string>
+        </entry>
+		<entry>
+			<string>mode</string>
+			<string>Test</string><!-- Test, Production -->
+		</entry>
+        <!-- Длительность таймута для обновления событий -->
+         <entry>
+			<string>UpdateEventTimeout</string>
+			<string>180</string>
+        </entry>
+    </properties>
+</config>

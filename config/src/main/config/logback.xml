@@ -1,0 +1,933 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="com.panbet.common.DoNotLogMessageFilter" />
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="com.panbet.common.DoNotLogMessageFilter" />
+        <file>${panbetLogs}/errorLB.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/errorLB.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="TEST" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="com.panbet.common.DoNotLogMessageFilter" />
+        <file>${panbetLogs}/testLB.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/testLB.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="PROPERTIES_TEST" class="ch.qos.logback.core.FileAppender">
+        <file>${panbetLogs}/unfound_properties.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="error">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="ERROR"/>
+    </root>
+
+    <logger name="com.panbet.test.localization.ServerBundledEnumsTest" level="TRACE">
+        <appender-ref ref="PROPERTIES_TEST"/>
+    </logger>
+    <logger name="com.panbet.jobs.LiveSuspendToWhiteListSyncJob" level="DEBUG">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+	<logger name="com.panbet.logic.access.LoginService" level="DEBUG"/>
+	<logger name="com.panbet.logic.account.transferprocessor.WithdrawUserAlertPostExternalProcessor" level="DEBUG"/>
+	<logger name="com.panbet.logic.punter.identity" level="DEBUG"/>
+    <logger name="com.panbet.logic.account" level="INFO" />
+	<logger name="com.panbet.update.tasks.common" level="DEBUG"/>
+    <logger name="com.panbet.replication" level="INFO"/>
+    <logger name="com.panbet.dao" level="INFO"/>
+    <logger name="com.panbet.logic.credites" level="INFO" />
+    <logger name="com.panbet.update.cleaner" level="DEBUG"/>
+    <logger name="com.panbet.logic.betting" level="INFO"/>
+    <logger name="com.panbet.jobs" level="INFO"/>
+    <logger name="com.panbet.fix" level="INFO"/>
+    <logger name="com.panbet.ao.cache.EventResponsibleCachedAO_detail" level="debug"/>
+    <logger name="com.panbet.logic.queue" level="INFO"/>
+    <logger name="com.panbet.transport" level="INFO" />
+    <logger name="com.panbet.update" level="INFO"/>
+    <logger name="com.panbet.core" level="INFO"/>
+    <logger name="com.panbet.logic.punter" level="INFO"/>
+    <logger name="com.panbet.logic.account" level="INFO"/>
+    <logger name="com.panbet.common" level="INFO"/>
+    <logger name="com.panbet.toto" level="INFO"/>
+    <logger name="RejectedDepositLogger" level="INFO" />
+    <logger name="com.panbet.core.reflection.CommandService" level="INFO"/>
+    <logger name="com.panbet.services.skks.SKKSOperationLogger" level="INFO" />
+    <logger name="com.panbet.test.selenium.TestEventCreator" level="INFO" />
+    <logger name="com.panbet.test" level="DEBUG" >
+		<appender-ref ref="TEST"/>
+    </logger>
+    <logger name="com.panbet.api.changes" level="INFO"/>
+    <logger name="com.panbet.services.bettingservice" level="INFO"/>
+    <logger name="com.panbet.jmx.mbean.product" level="INFO"/>
+    <logger name="com.panbet.jmx.mbean.DictaoReportTypeSettings" level="INFO"/>
+    <logger name="com.panbet.messaging.RabbitProvider" level="INFO" />
+    <logger name="com.panbet.jobs.JobScheduler" level="DEBUG" />
+    <logger name="com.panbet.panbetservicecore.grpc.registry" level="INFO"/>
+
+    <appender name="aoCacheAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/ao_cache.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/ao_cache.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="events" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/events.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/events.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="namedlocks" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/namedlocks.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/namedlocks.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="excludedFromMainLogExceptionAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/excludedFromMainLog.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/excludedFromMainLog.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="coeffRecalculator" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/coeffRecalculator.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/coeffRecalculator.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="preLive" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/preLive.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/preLive.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="worldLine" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/worldLine.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/worldLine.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="ExcludedFromMainLogExceptionLogger" level="DEBUG">
+        <appender-ref ref="excludedFromMainLogExceptionAppender" />
+    </logger>
+
+    <logger name="com.panbet" level="WARN"/>
+
+    <!-- logs for com.panbet.logic.events.* start -->
+
+    <appender name="EventPartCopyJob" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/EventPartCopyJob.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/EventPartCopyJob.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="EventService_GetEvent" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/EventService_GetEvent.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/EventService_GetEvent.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="EventService_UpdateEventFieldsOCoeff" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/EventService_UpdateEventFieldsOCoeff.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/EventService_UpdateEventFieldsOCoeff.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="EventService_OpenDaysEvents" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/EventService_OpenDaysEvents.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/EventService_OpenDaysEvents.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="EventService_ResetActiveBetStop" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/EventService_ResetActiveBetStop.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/EventService_ResetActiveBetStop.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="DictionaryService_StorePunterTypeBetstops" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/DictionaryService_StorePunterTypeBetstops.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/DictionaryService_StorePunterTypeBetstops.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="DictionaryService_StoreEventMarketBetstops" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/DictionaryService_StoreEventMarketBetstops.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/DictionaryService_StoreEventMarketBetstops.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ActiveBetStopChangesWithEventsUpdater" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/ActiveBetStopChangesWithEventsUpdater.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/ActiveBetStopChangesWithEventsUpdater.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="EventWebPressentationTrace" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/EventWebPressentationTrace.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/EventWebPressentationTrace.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="LiveBetPlaceDelay" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/LiveBetPlaceDelay.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/LiveBetPlaceDelay.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="UpdateEventLimitReduction" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/UpdateEventLimitReduction.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/UpdateEventLimitReduction.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="common" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/common.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/common.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="eventEarlyResults" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/eventEarlyResults.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/eventEarlyResults.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="event_time" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/event_time.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/event_time.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="event_update_time" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/event_update_time.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/event_update_time.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="invalidSelections" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/invalidSelections.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/invalidSelections.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="livesuspend" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/livesuspend.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/livesuspend.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="responsibleUsers" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/responsibleUsers.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/responsibleUsers.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="updateEventFields" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/updateEventFields.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/updateEventFields.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="EventFillerService" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/EventFillerService.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/EventFillerService.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="PunterIdentity" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/PunterIdentity.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/PunterIdentity.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="queueCommand" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/queueCommand.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/QueueCommand.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="betstats" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/betstats.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/betstats.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="grpc" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/grpc.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/grpc.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="betarchiver" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/betarchiver.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/betarchiver.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="EventCoefficientsService" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/EventCoefficientsService.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/EventCoefficientsService.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="userAccess" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/user-access.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/user-access.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="AsyncPostProcessingArchivedEventsService" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/AsyncPostProcessingArchivedEventsService.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/AsyncPostProcessingArchivedEventsService.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="eventResultEnteredTime" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/EventResultEnteredTime.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/EventResultEnteredTime.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="EventProfitabilityRulesProcessor" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/EventProfitabilityRulesProcessor.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/EventProfitabilityRulesProcessor.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="EventService_ConfirmMarkets" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/event_confirmmarkets.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/event_confirmmarkets.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="TOTO_SERVICE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/TotoService.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/TotoService.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.panbet.toto.TotoService" level="DEBUG">
+        <appender-ref ref="TOTO_SERVICE"/>
+    </logger>
+
+    <appender name="EventSelectionReferences" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/selectionRefs.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/selectionRefs.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="CategoryPuntersRatingService" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/CategoryPunterRatingRules.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/CategoryPunterRatingRules.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="EventUpdatePatternQueuedExecutor" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/eventUpdatePatternQueuedExecutor.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/eventUpdatePatternQueuedExecutor.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="EventWebPresentationGetByTreeIDTraceLogger" level="info">
+        <appender-ref ref="EventWebPressentationTrace"/>
+    </logger>
+    <logger name="com.panbet.logic.events.EventHelper" level="info">
+        <appender-ref ref="common"/>
+    </logger>
+    <logger name="com.panbet.logic.events.EventHelper_LimitsReduction" level="info">
+        <appender-ref ref="UpdateEventLimitReduction"/>
+    </logger>
+    <logger name="com.panbet.logic.events.EventHelper_Time" level="info">
+        <appender-ref ref="event_time"/>
+    </logger>
+    <logger name="com.panbet.logic.events.EventLogger" level="info">
+        <appender-ref ref="events"/>
+    </logger>
+    <logger name="com.panbet.logic.events.EventService_GetEvent" level="info">
+        <appender-ref ref="EventService_GetEvent"/>
+    </logger>
+    <logger name="com.panbet.logic.events.EventService_UpdateEventFields" level="info">
+        <appender-ref ref="updateEventFields"/>
+    </logger>
+    <logger name="com.panbet.logic.events.EventService_UpdateEventFieldsOnlyCoeffs" level="info">
+        <appender-ref ref="EventService_UpdateEventFieldsOCoeff"/>
+    </logger>
+    <logger name="com.panbet.logic.events.EventService_OpenDaysEvents" level="info">
+        <appender-ref ref="EventService_OpenDaysEvents"/>
+    </logger>
+    <logger name="com.panbet.logic.events.EventService_ResetActiveBetStop" level="info">
+        <appender-ref ref="EventService_ResetActiveBetStop"/>
+    </logger>
+
+    <logger name="com.panbet.logic.dictionary.DictionaryService_StorePunterTypeBetstops" level="info">
+        <appender-ref ref="DictionaryService_StorePunterTypeBetstops"/>
+    </logger>
+
+    <logger name="com.panbet.logic.dictionary.DictionaryService_StoreEventMarketBetstops" level="info">
+        <appender-ref ref="DictionaryService_StoreEventMarketBetstops"/>
+    </logger>
+
+    <logger name="com.panbet.common.changes.ActiveBetStopChangesWithEventsUpdater" level="info">
+        <appender-ref ref="ActiveBetStopChangesWithEventsUpdater"/>
+    </logger>
+
+    <logger name="com.panbet.logic.events.LiveBetDelayProcessor" level="info">
+        <appender-ref ref="LiveBetPlaceDelay"/>
+    </logger>
+    <logger name="com.panbet.logic.events.live.LiveSuspendManager" level="info">
+        <appender-ref ref="livesuspend"/>
+    </logger>
+    <logger name="com.panbet.logic.events.message.EventChangesDependedListener" level="debug">
+        <appender-ref ref="EventPartCopyJob"/>
+    </logger>
+    <logger name="com.panbet.logic.events.responsible.ResponsibleUsersHelper" level="info">
+        <appender-ref ref="responsibleUsers"/>
+    </logger>
+    <logger name="com.panbet.logic.events.result.earlycompile.EarlyResultsLogger" level="info">
+        <appender-ref ref="eventEarlyResults"/>
+    </logger>
+    <logger name="com.panbet.logic.events.store.EventTimeLogger" level="info">
+        <appender-ref ref="event_update_time"/>
+    </logger>
+    <logger name="com.panbet.logic.events.validation.activity.InvalidHandicapBettingMarketActivityValidator" level="info">
+        <appender-ref ref="invalidSelections"/>
+    </logger>
+    <logger name="com.panbet.logic.events.validation.activity.InvalidTotalMarketActivityValidator" level="info">
+        <appender-ref ref="invalidSelections"/>
+    </logger>
+
+    <logger name="com.panbet.logic.events.calculation.RobotFillerServiceResponseTO" level="debug">
+        <appender-ref ref="EventFillerService"/>
+    </logger>
+    <logger name="com.panbet.logic.events.calculation.EventFillerService" level="debug">
+        <appender-ref ref="EventFillerService"/>
+    </logger>
+
+    <logger name="com.panbet.logic.events.EventService_UpdateEventProfitabilityRulesChanges" level="debug">
+        <appender-ref ref="EventProfitabilityRulesProcessor"/>
+    </logger>
+    <logger name="com.panbet.logic.events.profitability.rules.EventProfitabilityRulesProcessor" level="debug">
+        <appender-ref ref="EventProfitabilityRulesProcessor"/>
+    </logger>
+
+    <logger name="com.panbet.logic.punter.identity" level="debug">
+    	<appender-ref ref="PunterIdentity" />
+    </logger>
+    <logger name="com.panbet.services.svj" level="debug">
+    	<appender-ref ref="PunterIdentity" />
+    </logger>
+    <logger name="com.panbet.logic.betting.ratingrules.CategoryPuntersRatingService" level="info">
+        <appender-ref ref="CategoryPuntersRatingService"/>
+    </logger>
+    <logger name="com.panbet.logic.events.EventUpdatePatternQueuedExecutor" level="debug">
+        <appender-ref ref="EventUpdatePatternQueuedExecutor"/>
+    </logger>
+
+    <!-- logs for com.panbet.logic.events.* end -->
+    
+    <logger name="com.panbet.logic.events.profitability.recalculator.EventCoefficientsRecalculator" level="debug">
+    	<appender-ref ref ="coeffRecalculator"/>
+    </logger>
+    
+    <logger name="com.panbet.logic.events.profitability.recalculator.EventCoefficientsRecalculator_Coeffs" level="debug">
+    	<appender-ref ref ="coeffRecalculator"/>
+    </logger>
+
+    <logger name="com.panbet.logic.events.profitability.recalculator.metrics.EventCoefficientsRecalculationKD" level="debug">
+        <appender-ref ref ="coeffRecalculator"/>
+    </logger>
+    
+    <logger name="com.panbet.logic.events.PreLiveEventsProvider" level="debug">
+    	<appender-ref ref ="preLive"/>
+    </logger>    
+    
+    <logger name="com.panbet.jobs.PreLiveEventJob" level="debug">
+    	<appender-ref ref ="preLive"/>
+    </logger>
+    
+    <logger name="com.panbet.logic.events.message.EventPreLiveChangedProcessor" level="debug">
+    	<appender-ref ref ="preLive"/>
+    </logger>
+    
+    <logger name="com.panbet.logic.events.jurisdiction.RoundEventCoefficientReplicateStrategy" level="debug">
+    	<appender-ref ref="events"/>
+    </logger>
+
+    <logger name="com.panbet.betstatistics.betstats" level="info">
+        <appender-ref ref="betstats"/>
+    </logger>
+    
+    <logger name="com.panbet.common.services.QueueCommandExecutor" level="info">
+    	<appender-ref ref="queueCommand"/>
+    </logger>
+    
+    <logger name="com.panbet.logic.events.message.EventPropertiesChangedProcessor" level="debug">
+    	<appender-ref ref="events"/>
+    </logger>
+
+    <logger name="com.panbet.replication.ReplicationFilterContainer" level="debug">
+    	<appender-ref ref="events"/>
+    </logger>
+    
+    <logger name="com.panbet.ao.cache.worldline.WorldLineSourceCachedAO" level="debug">
+    	<appender-ref ref="worldLine"/>
+    </logger>
+
+    <logger name="com.panbet.logic.betting.BetConstructorProcessor" level="debug">
+        <appender-ref ref="common"/>
+    </logger>
+
+    <logger name="com.panbet.logic.punter.inmemory" level="debug">
+        <appender-ref ref="common"/>
+    </logger>
+
+    <logger name="com.panbet.grpc" level="info">
+    	<appender-ref ref="grpc"/>
+    </logger>
+
+    <logger name="com.panbet.logic.betting.grpc" level="info">
+    	<appender-ref ref="grpc"/>
+    </logger>
+
+    <logger name="com.panbet.logic.translation.TranslationTO" level="debug">
+        <appender-ref ref="events"/>
+    </logger>
+
+    <logger name="com.panbet.logic.access.UserAccessLogger" level="INFO" >
+        <appender-ref ref="userAccess"/>
+    </logger>
+
+    <logger name="com.panbet.logic.events.archivation.AsyncPostProcessingArchivedEventsService" level="debug">
+        <appender-ref ref="AsyncPostProcessingArchivedEventsService"/>
+    </logger>
+
+    <logger name="com.panbet.jobs.ProcessArchivedEventsJob" level="debug">
+        <appender-ref ref="AsyncPostProcessingArchivedEventsService"/>
+    </logger>
+    
+    <logger name="com.panbet.logic.events.EventTreeResolver" level="debug">
+    	<appender-ref ref="events"/>
+    </logger> 
+    <logger name="com.panbet.logic.events.LivesHeartBeatMonitor" level="info">
+        <appender-ref ref="livesuspend"/>
+    </logger>
+    <logger name="com.panbet.ao.cache.EventResultEnteredTimeCacheAO" level="debug">
+        <appender-ref ref="eventResultEnteredTime"/>
+    </logger>
+
+    <logger name="com.panbet.logic.events.EventCoefficientsService" level="debug">
+        <appender-ref ref="EventCoefficientsService"/>
+    </logger>
+    
+    <logger name="com.panbet.jobs.EventCoeffArchivingJob" level="debug">
+    	<appender-ref ref="EventCoefficientsService"/>
+    </logger>
+    
+    <logger name="com.panbet.jobs.EventCoeffOldDeleteJob" level="debug">
+        <appender-ref ref="EventCoefficientsService"/>
+    </logger>
+    
+    <logger name="com.panbet.view.presentations.CommonWEPAdditionalProcessor" level="debug">
+    	<appender-ref ref="events"/>
+    </logger>
+    
+    <logger name="com.panbet.logic.events.message.EventPrematchStateChangedProcessor" level="debug">
+    	<appender-ref ref="events"/>
+    </logger>
+    
+    <logger name="com.panbet.logic.events.message.EventPrematchStateChangeProcessor" level="debug">
+    	<appender-ref ref="events"/>
+    </logger>
+        
+    <logger name="com.panbet.ao.cache.CurrencyRateProviderLogger" level="info">
+        <appender-ref ref="common"/>
+    </logger>
+
+    <logger name="com.panbet.logic.betting.archiver" level="debug">
+        <appender-ref ref="betarchiver" />
+    </logger>
+
+    <logger name="com.panbet.ao.cache.PlayInFixedMatchesTypesCommonProvider" level="debug">
+    	<appender-ref ref="events"/>
+    </logger>
+
+    <appender name="ProtoBetPlacing" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/ProtoBetPlacing.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/ProtoBetPlacing.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.panbet.betplacing.services.PlacingService" level="trace">
+        <appender-ref ref="ProtoBetPlacing"/>
+    </logger>
+    
+    <logger name="com.panbet.logic.events.EventService_ConfirmMarkets" level="debug">
+    	<appender-ref ref="EventPartCopyJob"/>
+    </logger>    
+    
+    <logger name="com.panbet.logic.events.message.processors.SetConfirmMarketsProcessor" level="debug">
+    	<appender-ref ref="EventPartCopyJob"/>
+    </logger>    
+
+    <logger name="com.panbet.dao.oracle.EventCoeffDAOOracle_Batch" level="debug">
+        <appender-ref ref="events"/>
+    </logger>
+
+    <logger name="com.panbet.logic.events.references.EventSelectionReferencesManager" level="debug">
+        <appender-ref ref="EventSelectionReferences"/>
+    </logger>
+    <logger name="com.panbet.ao.cache.EventSelectionReferencesCachedAO" level="debug">
+        <appender-ref ref="EventSelectionReferences"/>
+    </logger>
+    <logger name="com.panbet.logic.events.references.EventTotalHandicapSameSelectionFindContext" level="debug">
+        <appender-ref ref="EventSelectionReferences"/>
+    </logger>
+    <logger name="com.panbet.logic.pattern.command.markets.referencechecker.ReferenceCheckerKeyFactory" level="info">
+        <appender-ref ref="EventSelectionReferences"/>
+    </logger>
+
+    <appender name="TreeItemUpdate" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/treeItemUpdate.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/treeItemUpdate.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    <logger name="com.panbet.logic.tree.TreeVisibilityHelper" level="info">
+        <appender-ref ref="TreeItemUpdate"/>
+    </logger>
+    <logger name="com.panbet.logic.events.PostProcessEventCategoryUpdater" level="info">
+        <appender-ref ref="TreeItemUpdate"/>
+    </logger>
+
+    <logger name="com.panbet.logic.jurisdiction.AutoExcludedTreeItemForJurisdictionProcessor" level="debug">
+        <appender-ref ref="events"/>
+    </logger>
+
+    <appender name="BetStopFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/betStop.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/betStop.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    <logger name="com.panbet.services.dataservice.betstop.BetStopDataServiceLogger" level="debug">
+        <appender-ref ref="BetStopFile"/>
+    </logger>
+
+    <!--    event category tree dataservice logging-->
+    <appender name="EventTreeCategoryDataService" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/EventTreeCategoryDataService.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/EventTreeCategoryDataService.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    <logger name="com.panbet.logic.events.EventTreeDataServiceInitializer" level="debug">
+        <appender-ref ref="EventTreeCategoryDataService"/>
+    </logger>
+
+    <!--    treeDAO logging-->
+    <appender name="TreeDAOOracle" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/treeDAOOracleLB.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/treeDAOOracleLB.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="ReplicationMessage" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${panbetLogs}/replicationLB.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/old/replicationLB.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss,SSS Z" GMT} [%t] [%c{0}] [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    <logger name="com.panbet.dao.oracle.TreeDAOOracle" level="debug">
+        <appender-ref ref="TreeDAOOracle" />
+    </logger>
+    <logger name="com.panbet.logic.events.EventService_GetEventTreeIdByType" level="debug">
+        <appender-ref ref="TreeDAOOracle"/>
+    </logger>
+    <logger name="com.panbet.logic.events.SubTreeSettingsUpdater" level="info">
+        <appender-ref ref="events"/>
+    </logger>
+    <logger name="com.panbet.logic.events.message.EventConfirmMarketsProcessor" level="debug">
+        <appender-ref ref="EventPartCopyJob"/>
+    </logger>
+    <logger name="com.panbet.logic.events.message.processors.CopyEventParamAdapter" level="debug">
+        <appender-ref ref="EventPartCopyJob"/>
+    </logger>
+    <logger name="com.panbet.logic.events.result.enteredtime.MarketConfirmationManager" level="debug">
+        <appender-ref ref="EventPartCopyJob"/>
+    </logger>
+    <logger name="com.panbet.logic.events.EventService" level="debug">
+        <appender-ref ref="events"/>
+    </logger>
+
+    <logger name="com.panbet.logic.events.profitability.recalculator.resolvers.ProfitabilityResolver" level="debug">
+        <appender-ref ref="coeffRecalculator"/>
+    </logger>
+    <logger name="com.panbet.logic.events.profitability.recalculator.resolvers.ProfitabilityResolver_Validation" level="debug">
+        <appender-ref ref="coeffRecalculator"/>
+    </logger>
+
+    <logger name="com.panbet.messaging.RabbitProvider.event" level="debug">
+        <appender-ref ref="ReplicationMessage"/>
+    </logger>
+    <logger name="com.panbet.messaging.RabbitProvider.live" level="debug">
+        <appender-ref ref="ReplicationMessage"/>
+    </logger>
+    <logger name="com.panbet.messaging.RabbitProvider.settings" level="debug">
+        <appender-ref ref="ReplicationMessage"/>
+    </logger>
+    <logger name="com.panbet.messaging.RabbitProvider.tree" level="debug">
+        <appender-ref ref="ReplicationMessage"/>
+    </logger>
+    <logger name="com.panbet.replication.EventMessageProcessor" level="debug">
+        <appender-ref ref="ReplicationMessage"/>
+    </logger>
+    <logger name="com.panbet.replication.TreeMessageProcessor" level="debug">
+        <appender-ref ref="ReplicationMessage"/>
+    </logger>
+
+    <logger name="com.panbet.ao.cache.TimeZoneCachedAO" level="info"/>
+
+</configuration>

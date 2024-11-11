@@ -1,0 +1,8 @@
+<KoreanApi>
+    <!-- Currencies that allowed to use Korean backoffice. Format: ISO code in uppercase 3 symbols -->
+    <allowedCurrencies>
+        <code>KRW1</code>
+        <!--Hack for PAN-44161-->
+        <code>JPY1</code>
+    </allowedCurrencies>
+</KoreanApi>

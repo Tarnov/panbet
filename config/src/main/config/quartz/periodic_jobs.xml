@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<job-scheduling-data xmlns="http://www.quartz-scheduler.org/xml/JobSchedulingData"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0"
+    xsi:schemaLocation="http://www.quartz-scheduler.org/xml/JobSchedulingData http://www.quartz-scheduler.org/xml/job_scheduling_data_2_0.xsd">
+
+    <processing-directives>
+        <overwrite-existing-data>true</overwrite-existing-data>
+        <ignore-duplicates>true</ignore-duplicates>
+    </processing-directives>
+
+    <pre-processing-commands>
+        <delete-jobs-in-group>CronJob</delete-jobs-in-group>
+        <delete-triggers-in-group>CronTrigger</delete-triggers-in-group>
+    </pre-processing-commands>
+
+    <schedule>
+        <job>
+            <name>EventArchivingJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.EventArchivingJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>EventArchivingCronExpression</name>
+                <group>CronTrigger</group>
+                <job-name>EventArchivingJob</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 0 0/1 * * ?</cron-expression>
+            </cron>
+        </trigger>
+
+
+        <job>
+            <name>RemoveNRSelectionsJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.RemoveNRSelectionsJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>removeNRCronExpression</name>
+                <group>CronTrigger</group>
+                <job-name>RemoveNRSelectionsJob</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 0 2 * * ?</cron-expression>
+            </cron>
+        </trigger>
+
+
+        <job>
+            <name>OpenDaysEventsJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.OpenDaysEventsJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>openEventsCronExpression</name>
+                <group>CronTrigger</group>
+                <job-name>OpenDaysEventsJob</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 0 3 * * ?</cron-expression>
+            </cron>
+        </trigger>
+
+
+        <job>
+            <name>CheckWebFrontPageSettingsJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.CheckWebFrontPageSettingsJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>removeOldWebFrontPageSettingsElements</name>
+                <group>CronTrigger</group>
+                <job-name>CheckWebFrontPageSettingsJob</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 0 2 * * ?</cron-expression>
+            </cron>
+        </trigger>
+
+
+        <job>
+            <name>RestartDepositReceiptsSequence</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.RestartDepositReceiptsSequence</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>restartDepositReceiptsSequence</name>
+                <group>CronTrigger</group>
+                <job-name>RestartDepositReceiptsSequence</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 0 0 * * ?</cron-expression>
+            </cron>
+        </trigger>
+
+
+        <job>
+            <name>RejectOutdatedPayouts</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.RejectOutdatedPayouts</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>rejectOutdatedPayouts</name>
+                <group>CronTrigger</group>
+                <job-name>RejectOutdatedPayouts</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 0 0/12 * * ?</cron-expression>
+            </cron>
+        </trigger>
+
+
+        <job>
+            <name>PunterTypeAutoManageJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.PunterTypeAutoManageJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>punterTypeAutoManageCronExpression</name>
+                <group>CronTrigger</group>
+                <job-name>PunterTypeAutoManageJob</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 0 16 * * ?</cron-expression>
+            </cron>
+        </trigger>
+        
+        <job>
+            <name>PunterDormantJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.PunterDormantJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>punterDormantJob</name>
+                <group>CronTrigger</group>
+                <job-name>PunterDormantJob</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 0 0 * * ?</cron-expression>
+            </cron>
+        </trigger>
+
+        <job>
+            <name>DormantSafeguardProcedurePrepareJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.DormantSafeguardProcedurePrepareJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>DormantSafeguardProcedurePrepare</name>
+                <group>CronTrigger</group>
+                <job-name>DormantSafeguardProcedurePrepareJob</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 0 0 * * ?</cron-expression>
+            </cron>
+        </trigger>
+
+        <job>
+            <name>DormantSafeguardProcedureJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.DormantSafeguardProcedureJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>DormantSafeguardProcedure</name>
+                <group>CronTrigger</group>
+                <job-name>DormantSafeguardProcedureJob</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 5 0 * * ?</cron-expression>
+            </cron>
+        </trigger>
+
+        <job>
+            <name>DormantSafeguardProcedureFeeChargeJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.DormantSafeguardProcedureFeeChargeJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>DormantSafeguardProcedureFeeCharge</name>
+                <group>CronTrigger</group>
+                <job-name>DormantSafeguardProcedureFeeChargeJob</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 10 0 * * ?</cron-expression>
+            </cron>
+        </trigger>
+
+        <job>
+            <name>DormantSafeguardProcedureOldDormantFeeJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.DormantSafeguardProcedureOldDormantFeeJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>DormantSafeguardProcedureOldDormantFee</name>
+                <group>CronTrigger</group>
+                <job-name>DormantSafeguardProcedureOldDormantFeeJob</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 0/30 * * * ?</cron-expression>
+            </cron>
+        </trigger>
+
+        <job>
+            <name>DormantSafeguardProcedureOldClosedFeeJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.DormantSafeguardProcedureOldClosedFeeJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>DormantSafeguardProcedureOldClosedFee</name>
+                <group>CronTrigger</group>
+                <job-name>DormantSafeguardProcedureOldClosedFeeJob</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 15 0 * * ?</cron-expression>
+            </cron>
+        </trigger>
+
+        <job>
+            <name>DormantSafeguardProcedureManuallyChargedPuntersFeeJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.DormantSafeguardProcedureManuallyChargedPuntersFeeJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>DormantSafeguardProcedureManuallyChargedPuntersFee</name>
+                <group>CronTrigger</group>
+                <job-name>DormantSafeguardProcedureManuallyChargedPuntersFeeJob</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 20 0 * * ?</cron-expression>
+            </cron>
+        </trigger>
+
+        <job>
+            <name>DormantProcedureRuJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.DormantProcedureRuJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>DormantProcedureRu</name>
+                <group>CronTrigger</group>
+                <job-name>DormantProcedureRuJob</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 5 * * * ?</cron-expression> <!--каждый час в 5 минут-->
+            </cron>
+        </trigger>
+
+        <!--job>
+            <name>TotoEventUpdateCoeffJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.TotoEventUpdateCoeffJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>totoEventUpdateCoeffJob</name>
+                <group>CronTrigger</group>
+                <job-name>TotoEventUpdateCoeffJob</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 0/5 * * * ?</cron-expression>
+            </cron>
+        </trigger-->
+
+		<job>
+			<name>PunterStateInactiveJob</name>
+			<group>CronJob</group>
+			<job-class>com.panbet.jobs.PunterStateInactiveJob</job-class>
+		</job>
+		<trigger>
+			<cron>
+				<name>punterStateInactiveJob</name>
+				<group>CronTrigger</group>
+				<job-name>PunterStateInactiveJob</job-name>
+				<job-group>CronJob</job-group>
+				<cron-expression>0 0 0 * * ?</cron-expression>
+			</cron>
+		</trigger>
+
+        <job>
+            <name>CityAdsUpdateActionsJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.CityAdsUpdateActionsJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>cityAdsUpdateActions</name>
+                <group>CronTrigger</group>
+                <job-name>CityAdsUpdateActionsJob</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 20 3 * * ?</cron-expression> <!-- срабатывает раз в сутки в 03:20:00 -->
+            </cron>
+        </trigger>
+
+		<job>
+            <name>SpainishPunterVerificationJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.SpainishPunterVerificationJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>spainishPunterVerificationJob</name>
+                <group>CronTrigger</group>
+                <job-name>SpainishPunterVerificationJob</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 5 0/1 * * ?</cron-expression><!-- каждый час в 5 минут -->
+            </cron>
+        </trigger>
+
+		<job>
+            <name>DictaoDailyStatisticsJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.DictaoDailyStatisticsJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>dictaoDailyStatistics</name>
+                <group>CronTrigger</group>
+                <job-name>DictaoDailyStatisticsJob</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 0 1 * * ?</cron-expression>
+            </cron>
+        </trigger>
+        
+        <job>
+            <name>DictaoMonthlyStatisticsJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.DictaoMonthlyStatisticsJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>dictaoMonthlyStatistics</name>
+                <group>CronTrigger</group>
+                <job-name>DictaoMonthlyStatisticsJob</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 0 1 1 * ?</cron-expression>
+            </cron>
+        </trigger>
+        
+        <job>
+            <name>LossForYearUserAlertJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.useralert.LossForYearUserAlertJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>lossForYearUserAlertJob</name>
+                <group>CronTrigger</group>
+                <job-name>LossForYearUserAlertJob</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 0 0/1 * * ?</cron-expression>
+            </cron>
+        </trigger>
+        
+        <job>
+            <name>PunterCommentDueDateExpiredEmailJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.PunterCommentDueDateExpiredEmailJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>PunterCommentDueDateExpiredEmailJob</name>
+                <group>CronTrigger</group>
+                <job-name>PunterCommentDueDateExpiredEmailJob</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 0/1 * * * ?</cron-expression>
+            </cron>
+        </trigger>
+
+        <job>
+            <name>ProcessArchivedEventsJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.ProcessArchivedEventsJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>ProcessArchivedEventsCronExpression</name>
+                <group>CronTrigger</group>
+                <job-name>ProcessArchivedEventsJob</job-name>
+                <job-group>CronJob</job-group>
+                <!--<cron-expression>0 15 2 ? * MON-FRI</cron-expression>--><!-- в 2:15 кроме выходных -->
+                <cron-expression>0 0/5 * * * ?</cron-expression><!-- каждые 5 мин -->
+            </cron>
+        </trigger>
+        
+        <job>
+            <name>EventCoeffArchivingJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.EventCoeffArchivingJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>EventCoeffArchivingCronExpression</name>
+                <group>CronTrigger</group>
+                <job-name>EventCoeffArchivingJob</job-name>
+                <job-group>CronJob</job-group>
+                <job-data-map>
+                	<entry>
+                    	<key>MODE</key>
+                    	<value>MOVE_TO_STORAGE</value>
+                	</entry>
+            	</job-data-map>
+            	
+                <cron-expression>0 30 1 ? * MON-FRI</cron-expression> <!--  в 1:30 кроме выходных -->
+                <!--<cron-expression>0 0/2 * * * ?</cron-expression>  каждые 2 мин -->
+                
+            </cron>
+        </trigger>
+
+        <job>
+            <name>EventCoeffOldDeleteJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.EventCoeffOldDeleteJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>EventCoeffOldDeleteCronExpression</name>
+                <group>CronTrigger</group>
+                <job-name>EventCoeffOldDeleteJob</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 40 1 ? * MON</cron-expression> <!-- в 1:40 по понедельникам -->
+                <!--  <cron-expression>0 0/2 * * * ?</cron-expression> -->   <!-- каждые 2 мин -->
+            </cron>
+        </trigger>
+
+        <job>
+            <name>ProcessAdsMobileRegistrationsJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.ProcessAdsMobileRegistrationsJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>processAdsMobileRegistrationsCronExpression</name>
+                <group>CronTrigger</group>
+                <job-name>ProcessAdsMobileRegistrationsJob</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 0 0/2 * * ?</cron-expression> <!-- срабатывает каждые 2 часа -->
+            </cron>
+        </trigger>
+
+        <!-- 
+        <trigger>
+            <cron>
+                <name>EventCoeffArchivingCheckCronExpression</name>
+                <group>CronTrigger</group>
+                <job-name>EventCoeffArchivingJob</job-name>
+                <job-group>CronJob</job-group>
+                <job-data-map>
+                	<entry>
+                    	<key>MODE</key>
+                    	<value>CHECK_CLEAN_OLD_ARCHIVED</value>                    	
+                	</entry>                	
+            	</job-data-map>
+                <cron-expression>0 30 1 ? * MON-FRI</cron-expression>                          
+            </cron>
+        </trigger>
+        -->
+
+        <job>
+            <name>CleanArchiveTreeItemsJob</name>
+            <group>CronJob</group>
+            <job-class>com.panbet.jobs.CleanArchiveTreeItemsJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>CleanArchiveTreeItemsExpression</name>
+                <group>CronTrigger</group>
+                <job-name>CleanArchiveTreeItemsJob</job-name>
+                <job-group>CronJob</job-group>
+                <cron-expression>0 0 9 * * ?</cron-expression>
+            </cron>
+        </trigger>
+    </schedule>
+</job-scheduling-data>

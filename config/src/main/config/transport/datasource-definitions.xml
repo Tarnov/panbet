@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+	<!-- datasources configuration -->
+	<!-- "hardcoded" datasources. Don't remove quartz, odds,  
+		toto -->
+	<bean id="quartz" parent="datasource" p:maxActive="5" />
+	<bean id="odds" parent="datasource" p:maxActive="30" />
+	<bean id="app" parent="datasource" p:maxActive="10" />
+	<bean id="bs" parent="datasource" p:maxActive="4" />
+    <bean id="bps" parent="datasource" p:maxActive="100"/>
+	<bean id="api" parent="datasource" p:maxActive="30" />
+    <bean id="api_web" parent="datasource" p:maxActive="150" />
+    <bean id="internal_events" parent="datasource" p:maxActive="50" />
+	<!-- датасорс для формирования dictao отчетов на standby db -->
+	<bean id="dictao_standby" parent="datasource" />
+
+	<!-- freeform datasources, see datasource configurations below -->
+	<bean id="process_bets" parent="datasource" p:maxActive="5" />
+	<bean id="live_game" parent="datasource" p:maxActive="5" />
+	<bean id="live_game_event_result" parent="datasource" p:maxActive="5" p:username="EventResult"
+          p:password="eventresult" />
+	<bean id="external_services" parent="datasource" p:maxActive="10" />
+	<bean id="odds_service" parent="datasource" p:maxActive="10" />
+	<bean id="payment_provider" parent="datasource" p:maxActive="10" />
+	<bean id="ticket_placement" parent="datasource" p:maxActive="5" />
+	<bean id="long_sql" parent="datasource" p:maxActive="5" p:removeAbandonedTimeout="1800" />
+	<bean id="sessionstore" parent="datasource" p:maxActive="5" />
+    <bean id="default_grpc" parent="datasource" p:maxActive="10"/>
+	<!-- датасорс для джобы архивации к-тов -->
+    <bean id="event_coeff_archive" parent="datasource" p:maxActive="5" p:removeAbandonedTimeout="1800"/>
+    <bean id="remove_audit_from_queue" parent="datasource" p:maxActive="5" p:removeAbandonedTimeout="1800"/>
+	<bean id="api_ut" parent="datasource" p:maxActive="5" />
+    <bean id="pars" parent="datasource" p:maxActive="10"/>
+	<bean id="test" parent="datasource" p:maxActive="10"/>
+	<bean id="payment_report" parent="datasource" p:maxActive="5" p:removeAbandonedTimeout="1800"/>
+
+	<util:map id="datasourcesByChannel">
+		<entry key="CC" value="odds" />
+		<entry key="ODDS" value="odds"/>
+        <entry key="LIVE_GAME" value="live_game"/>
+        <entry key="EXTERNAL_SERVICES" value="external_services"/>
+        <entry key="ODDS_SERVICE" value="odds_service"/>
+        <entry key="PAYMENT_PROVIDER" value="payment_provider"/>
+        <entry key="BS" value="bs"/>
+        <entry key="BS_ASYNC" value="bs"/>
+        <entry key="BPS" value="bps"/>
+        <entry key="PROCESS_BET" value="process_bets"/>
+        <entry key="DEFAULT_GRPC" value="default_grpc"/>
+        <entry key="PARS" value="pars"/>
+        <entry key="DS" value="default_grpc"/>
+        <entry key="PUNTERSERVICE" value="default_grpc"/>
+        <entry key="PSAS" value="default_grpc"/>
+
+        <!-- API related channels -->
+        <entry key="API" value="api"/>
+        <entry key="API_WEB" value="api"/>
+        <entry key="API_MOBILE" value="api"/>
+        <entry key="API_UNIWEB" value="api"/>
+        <entry key="API_GI" value="api"/>
+        <entry key="API_BO" value="api"/>
+        <entry key="API_PAYSYS" value="api"/>
+        <entry key="API_WC" value="api"/>
+        <entry key="API_PP" value="api"/>
+		<entry key="API_LG" value="live_game"/>
+		<entry key="API_SS" value="sessionstore"/>
+		<entry key="API_UT" value="api_ut" />
+
+		<!-- Internal channels -->
+		<entry key="DEFAULT" value="app"/>
+		<entry key="DBUPDATE" value="app"/>
+		<entry key="INTERNAL" value="app"/>
+		<entry key="INTERNAL_EVENTS" value="internal_events"/>
+		<entry key="BETCONTROL" value="external_services"/>
+		<entry key="TEST" value="test"/>
+	</util:map>
+
+	<util:map id="datasourceMethodsOverride" key-type="com.panbet.core.reflection.BusinessMethodTemplates">
+		<entry key="ReplicationProcessMessage" value="odds"/>
+		<entry key="ReplicationSendMessage" value="odds"/>
+		<entry key="BetTicketPlace" value="ticket_placement"/>
+		<entry key="PunterTypeAutoManageList" value="long_sql"/>
+		<entry key="PunterTypeToNewTypeCandidate" value="long_sql"/>
+		<entry key="DormantGetToDormantCandidates" value="long_sql"/>
+		<entry key="PunterTypeNewUserAgToNewUser" value="long_sql"></entry>
+		<entry key="DictaoProcessAudit" value="long_sql"></entry>
+		<entry key="RetrieveEventIdForArchiveCoeff" value="event_coeff_archive"/>
+		<entry key="EventCoeffMoveFromQueue" value="event_coeff_archive"/>
+		<entry key="ProcessRemoveForArchivedEventCoeff" value="event_coeff_archive"/>
+		<entry key="CheckOldArchivedEventCoeffs" value="event_coeff_archive"/>
+		<entry key="AuditMoveFromAuditQueue" value="remove_audit_from_queue"/>
+		<entry key="AuditQueueSize" value="remove_audit_from_queue"/>
+		<entry key="CreatePaymentReport" value="payment_report"/>
+    </util:map>
+
+</beans>

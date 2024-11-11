@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<paymentsConfig>
+	<!-- id причин, которые используются для перевода средств между игровыми счетами -->
+	<internalAccountTransfersReasons>
+		<id>2</id>
+		<id>266</id>
+	</internalAccountTransfersReasons>
+
+    <!-- id причин, которые используются для перевода средств со счета родительской организации на счет дочерней -->
+    <partnerChildDecreaseReason>87</partnerChildDecreaseReason>
+    <partnerChildIncreaseReason>260</partnerChildIncreaseReason>
+
+	<!-- сумма в системной валюте для таски PAN-11488 (разница win/loss до достижения
+		которой мы позволяем арберам автовыплачиваться) -->
+	<arbAutoWithdrawLimit>500.00</arbAutoWithdrawLimit>
+
+    <!-- сумма в системной валюте - разница win/loss до достижения которой мы позволяем
+        казино автовыплачиваться -->
+    <casinoAutoWithdrawLimit>500.00</casinoAutoWithdrawLimit>
+
+    <!-- сумма в системной валюте - разница win/loss до достижения которой мы позволяем
+        лото автовыплачиваться -->
+    <bingoBoomAutoWithdrawLimit>500.00</bingoBoomAutoWithdrawLimit>
+
+    <!-- Минимальная сумма в дефолтной валюте, не считающаяся малой выплатой для Alderney по PAN-36935.
+         Защита от вывода значительной суммы маленькими трансферами.  -->
+    <alderneySmallPayoutLimit>300.00</alderneySmallPayoutLimit>
+
+    <!-- Максимальная сумма в дефолтной валюте, разрешенная для единовременной автовыплаты для Испании.
+         Параметр не используется, перенесен в настройки по юрисдикциям -->
+    <spainSingleAutoWithdrawalLimit>300.00</spainSingleAutoWithdrawalLimit>
+
+    <!-- Максимальная доля средств, взятых с терминального кошелька, при которой допускается проведение автовыплаты -->
+    <terminalWalletShareAmountLimit>0.9</terminalWalletShareAmountLimit>
+
+    <!-- Период времени, в течении которого, мы считаем платежное средство "новым" -->
+    <cashSourceAssignmentThreshold>P30D</cashSourceAssignmentThreshold>
+
+	<!-- Интервал в секундах через который производится попытка автовыплаты (если возможна) -->
+	<payoutTimeout>30</payoutTimeout>
+
+    <!-- Интервал в секундах, в течение которого транзакцию считать активной, по истечении таймаута - считаем транзакцию зависшей -->
+    <activeTransactionTimeout>300</activeTransactionTimeout>
+
+    <!-- Интервал в секундах, в течение которого допустимо ждать выключения платежной подсистемы -->
+    <paymentSubsystemDeactivationTimeout>300</paymentSubsystemDeactivationTimeout>
+
+	<!-- Список систем, которые исключаются при отмене заявок на вывод при перерасчете ставки  -->
+	<nonCancellableWidrawalOrderOnBetRepayout>
+		<system>tbl</system>
+		<system>boletoBancario</system>
+		<system>cashMexico</system>
+		<system>bankTransfer</system>
+	</nonCancellableWidrawalOrderOnBetRepayout>
+
+    <paintShopReplicationPoolSize>5</paintShopReplicationPoolSize>
+    <paintShopReplicationPoolQueueCapacity>1000</paintShopReplicationPoolQueueCapacity>
+    <paintShopReplicationBatchSize>150</paintShopReplicationBatchSize>
+    <paintShopBalanceLoadingRetryCount>3</paintShopBalanceLoadingRetryCount>
+
+    <!-- Количество платежных средств, реплицируемых за одно срабатывание джобы -->
+    <cashSourceReplicationBatchSize>150</cashSourceReplicationBatchSize>
+
+    <!-- Максимальное количество потоков для репликации и загрузки представлений платежных средств -->
+    <cashSourceReplicationParallelism>5</cashSourceReplicationParallelism>
+
+    <!-- Максимальное количество платежных средств, реплицируемых в одном потоке -->
+    <maxCashSourcesReplicatedPerThread>10</maxCashSourcesReplicatedPerThread>
+
+    <!-- Максимальное количество представлений платежных средств, загружаемых в одном потоке -->
+    <maxCashSourcesLoadedPerThread>10</maxCashSourcesLoadedPerThread>
+
+    <!-- Количество дней с момента регистрации игрока, в течении которых мы запретим ему автовыплаты,
+            если заподозрим в отмывании денег -->
+    <potentialLaunderingCheckPeriod>1</potentialLaunderingCheckPeriod>
+
+    <!-- Количество дней, в течении которых мы запретим игроку автовыплаты, начиная с момента его первого пополнения
+           с использованием платежек, позволяющих ввести креды банковской карты на стороне ПС -->
+    <miscodedPurchaseCheckPeriod>1</miscodedPurchaseCheckPeriod>
+
+    <!-- Лимит на сумму пополнений за последний месяц для временных аккаунтов игроков в юрисдикции DENMARK -->
+    <denmarkTemporaryAccountMonthlyPurchaseLimit>10000.00</denmarkTemporaryAccountMonthlyPurchaseLimit>
+</paymentsConfig>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<map>
+		<entry>
+			<string>JP</string>
+			<com.panbet.core.naming.JurisdictionCode>CURACAO</com.panbet.core.naming.JurisdictionCode>
+		</entry>
+		<entry>
+			<string>KR</string>
+			<com.panbet.core.naming.JurisdictionCode>CURACAO</com.panbet.core.naming.JurisdictionCode>
+		</entry>
+		<entry>
+			<string>RU</string>
+			<com.panbet.core.naming.JurisdictionCode>CURACAO</com.panbet.core.naming.JurisdictionCode>
+		</entry>
+		<entry>
+			<string>BY</string>
+			<com.panbet.core.naming.JurisdictionCode>CURACAO</com.panbet.core.naming.JurisdictionCode>
+		</entry>
+	</map>
+</config>

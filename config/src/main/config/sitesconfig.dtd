@@ -1,0 +1,54 @@
+<!--
+    Sites config XML DTD for panbet app server
+
+    $Id$
+-->
+<!ELEMENT sitesConfig (useHttps?, jurisdictions)>
+
+<!ELEMENT minPunterStandbyTimeout (#PCDATA)>
+
+<!ELEMENT defaultPunterStandbyTimeout (#PCDATA)>
+
+<!ELEMENT maxPunterStandbyTimeout (#PCDATA)>
+
+<!ELEMENT sites (site+)>
+<!ATTLIST sites default CDATA #IMPLIED>
+
+<!ELEMENT site (#PCDATA)>
+<!ATTLIST site type CDATA #REQUIRED>
+<!ATTLIST site url CDATA #REQUIRED>
+
+<!ELEMENT currencyOrder (currency*)>
+
+<!-- Jurisdictions -->
+<!ELEMENT jurisdictions (jurisdiction*)>
+
+<!-- Jurisdiction property -->
+<!ELEMENT jurisdiction (jurisdictionName, minPunterStandbyTimeout?,
+        defaultPunterStandbyTimeout?, maxPunterStandbyTimeout?,
+        isTimeoutSEEnabled?, minTimeoutSEDays?, maxTimeoutSEDays?,
+        currencyOrder, sites, passwordValidationConfig, punterVerifyService?, payoutCommission?)>
+
+<!ELEMENT passwordValidationConfig (checkRegExp, changeRegExp, lastUniquePasswordCount?)>
+
+<!ELEMENT checkRegExp (#PCDATA)>
+
+<!ELEMENT changeRegExp (#PCDATA)>
+
+<!ELEMENT lastUniquePasswordCount (#PCDATA)>
+
+<!-- Name of jurisdiction -->
+<!ELEMENT jurisdictionName (#PCDATA)>
+
+<!-- Explicitly set 'false' to turn off https on the site -->
+<!ELEMENT useHttps (#PCDATA)>
+
+<!ELEMENT system (#PCDATA)>
+
+<!ELEMENT isTimeoutSEEnabled (#PCDATA)>
+<!ELEMENT minTimeoutSEDays (#PCDATA)>
+<!ELEMENT maxTimeoutSEDays (#PCDATA)>
+<!ELEMENT punterVerifyService (#PCDATA)>
+<!ELEMENT payoutCommission (#PCDATA)>
+
+<!ELEMENT currency (#PCDATA)>

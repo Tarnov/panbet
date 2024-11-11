@@ -1,0 +1,12 @@
+<productsAvailability>
+    <jurisdictions name="CURACAO">
+        <products name="CASINO">
+            <blockedCurrencies>
+                <code>BYR</code>
+            </blockedCurrencies>
+            <blockedCountries>
+                <code>BY</code>
+            </blockedCountries>
+        </products>
+    </jurisdictions>
+</productsAvailability>

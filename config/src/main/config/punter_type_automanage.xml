@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<newUserAfterGoalToNewUserCandidate>
+		<!-- Код типа игрока для поиска -->
+		<typeCodes>NewUserAfterGoal</typeCodes>
+		<!-- Кол-во ставок за последние N дней -->
+		<betsCountForLastDays_DAYS>3</betsCountForLastDays_DAYS>
+		<!-- Кол-во ставок за последние N дней -->
+		<betsCountForLastDays_COUNT>20</betsCountForLastDays_COUNT>
+		<!-- Количество максимальных ставок для подсчета maxBetsSumm -->
+		<maxBetCountForSumm>3</maxBetCountForSumm>
+		<!-- Сумма максимальных maxBetCountForSumm ставок -->
+		<maxBetsSumm>20.0</maxBetsSumm>
+		<!-- Брать кандидатов, переведенных в искомый тип только автоматически -->
+		<onlyAutomatedTypeChange>false</onlyAutomatedTypeChange>
+		<!-- игрок играл в течении daysOfGame дней -->
+		<daysOfGame>3</daysOfGame>
+		<!-- минимальное среднее количество исходов в ставках игрока -->
+		<avgBetSelectionCount>1.5</avgBetSelectionCount>
+		<!-- дата регистрации более -->
+		<regDate>60</regDate>
+		<!-- общее количество ставок игрока -->
+		<allBetsCount>1000</allBetsCount>
+		<!-- общее количество дней игры -->
+		<allDaysOfGame>30</allDaysOfGame>
+		<!-- общий профит игрока -->
+		<totalProfit>500</totalProfit>
+	</newUserAfterGoalToNewUserCandidate>
+
+	<newUserNewTypeCandidate>
+		<!-- поставил 20 ставок -->
+		<betCount>20</betCount>
+		<!-- средняя сумма последних 20 ставок >= 15 евро -->
+		<avgCost>15</avgCost>
+		<!-- из количество ставок выше среднего >= 3  или Средняя сумма ставки < 15 евро и при этом -->
+		<betsAboveAvg>3</betsAboveAvg>
+		<!-- в какой потенциально хороший тип переводить (UnderReview) -->
+		<potentialGoodType>UnderReview</potentialGoodType>
+	</newUserNewTypeCandidate>
+
+	<toNewTypeCandidates>
+		<!-- PreArberToNewUser -->
+		<toNewTypeCandidate>
+			<!-- Сколько ставок должно быть за последние с момента getFromTime() -->
+			<needBetCount>20</needBetCount>
+			<!-- Количество максимальных ставок для подсчета maxBetsSumm -->
+			<maxBetCountForSumm>3</maxBetCountForSumm>
+			<!-- Сумма максимальных maxBetCountForSumm ставок -->
+			<maxBetsSumm>20.0</maxBetsSumm>
+			<!-- Брать кандидатов, переведенных в искомый тип только автоматически -->
+			<onlyAutomatedTypeChange>true</onlyAutomatedTypeChange>
+			<!-- Начиная с какого момента ищем ставки (надо взять последние N дней 
+				(текущий день считаем что это уже 1 прошедший день)) -->
+			<daysForBetSearch>3</daysForBetSearch>
+			<!-- игрок играл в течении daysOfGame дней -->
+			<daysOfGame>3</daysOfGame>
+			<!-- Код типа игрока для поиска -->
+			<candidateTypeCode>PreArber</candidateTypeCode>
+		</toNewTypeCandidate>
+
+		<!-- PreArber2ToNewUser -->
+		<toNewTypeCandidate>
+			<!-- Сколько ставок должно быть за последние с момента getFromTime() -->
+			<needBetCount>30</needBetCount>
+			<!-- Количество максимальных ставок для подсчета maxBetsSumm -->
+			<maxBetCountForSumm>5</maxBetCountForSumm>
+			<!-- Сумма максимальных maxBetCountForSumm ставок -->
+			<maxBetsSumm>20.0</maxBetsSumm>
+			<!-- Брать кандидатов, переведенных в искомый тип только автоматически -->
+			<onlyAutomatedTypeChange>true</onlyAutomatedTypeChange>
+			<!-- Начиная с какого момента ищем ставки (надо взять последние N дней 
+				(текущий день считаем что это уже 1 прошедший день)) -->
+			<daysForBetSearch>5</daysForBetSearch>
+			<!-- игрок играл в течении daysOfGame дней -->
+			<daysOfGame>5</daysOfGame>
+			<!-- Код типа игрока для поиска -->
+			<candidateTypeCode>PreArber_2</candidateTypeCode>
+		</toNewTypeCandidate>
+
+		<!-- NewUserAfterGoal -->
+		<toNewTypeCandidate>
+			<!-- Сколько ставок должно быть за последние с момента getFromTime() -->
+			<needBetCount>20</needBetCount>
+			<!-- Количество максимальных ставок для подсчета maxBetsSumm -->
+			<maxBetCountForSumm>3</maxBetCountForSumm>
+			<!-- Сумма максимальных maxBetCountForSumm ставок -->
+			<maxBetsSumm>20.0</maxBetsSumm>
+			<!-- Брать кандидатов, переведенных в искомый тип только автоматически -->
+			<onlyAutomatedTypeChange>false</onlyAutomatedTypeChange>
+			<!-- Начиная с какого момента ищем ставки (надо взять последние N дней 
+				(текущий день считаем что это уже 1 прошедший день)) -->
+			<daysForBetSearch>3</daysForBetSearch>
+			<!-- игрок играл в течении daysOfGame дней -->
+			<daysOfGame>3</daysOfGame>
+			<!-- Код типа игрока для поиска -->
+			<candidateTypeCode>NewUserAfterGoal</candidateTypeCode>
+		</toNewTypeCandidate>
+	</toNewTypeCandidates>
+
+</config>

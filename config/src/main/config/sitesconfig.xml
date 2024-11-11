@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sitesConfig SYSTEM "sitesconfig.dtd" >
+<sitesConfig>
+    <useHttps>false</useHttps>
+	<jurisdictions>
+		<jurisdiction>
+			<jurisdictionName>CURACAO</jurisdictionName>
+			<minPunterStandbyTimeout>5</minPunterStandbyTimeout>
+			<defaultPunterStandbyTimeout>120</defaultPunterStandbyTimeout>
+			<maxPunterStandbyTimeout>180</maxPunterStandbyTimeout>
+            <currencyOrder>
+                <currency>EUR</currency>
+                <currency>USD</currency>
+            </currencyOrder>
+            <sites default="WEB">
+                <site type="WEB" url="http://localhost:8404/panbetweb/"/>
+                <site type="MOBILE" url="http://localhost:8405/mobile/"/>
+            </sites>
+            <passwordValidationConfig>
+                <checkRegExp>^.{6,}$</checkRegExp>
+                <changeRegExp>^(?=(.*\d){1,})(?=(.*[a-zA-Z]){7,}).{8,}$</changeRegExp>
+            </passwordValidationConfig>
+		</jurisdiction>
+		<jurisdiction>
+			<jurisdictionName>ALDERNEY</jurisdictionName>
+			<minPunterStandbyTimeout>5</minPunterStandbyTimeout>
+			<defaultPunterStandbyTimeout>40</defaultPunterStandbyTimeout>
+			<maxPunterStandbyTimeout>40</maxPunterStandbyTimeout>
+            <isTimeoutSEEnabled>true</isTimeoutSEEnabled>
+            <minTimeoutSEDays>1</minTimeoutSEDays>
+            <maxTimeoutSEDays>42</maxTimeoutSEDays>
+            <currencyOrder>
+                <currency>GBP</currency>
+                <currency>EUR</currency>
+                <currency>USD</currency>
+            </currencyOrder>
+            <sites>
+                <site type="WEB" url="http://localhost:8404/panbetweb/"/>
+            </sites>
+            <passwordValidationConfig>
+                <checkRegExp>^.{6,}$</checkRegExp>
+                <changeRegExp>^(((?=.*\d{1,})(?=.*[a-z]{1,})(?=.*[A-Z]{1,}))|((?=.*\d{1,})(?=.*[a-z]{1,})(?=.*[_\W]{1,}))|((?=.*[A-Z]{1,})(?=.*[_\W]{1,})(?=.*[a-z]{1,}))|((?=.*\d{1,})(?=.*[A-Z]{1,})(?=.*[_\W]{1,}))).{8,}$</changeRegExp>
+            </passwordValidationConfig>
+		</jurisdiction>
+        <jurisdiction>
+			<jurisdictionName>BELARUS</jurisdictionName>
+			<minPunterStandbyTimeout>5</minPunterStandbyTimeout>
+			<defaultPunterStandbyTimeout>40</defaultPunterStandbyTimeout>
+			<maxPunterStandbyTimeout>40</maxPunterStandbyTimeout>
+            <currencyOrder>
+                <currency>EUR</currency>
+                <currency>USD</currency>
+            </currencyOrder>
+            <sites>
+                <site type="WEB" url="http://localhost:8404/panbetweb/"/>
+            </sites>
+            <passwordValidationConfig>
+                <checkRegExp>^.{6,}$</checkRegExp>
+                <changeRegExp>^(?=(.*\d){1,})(?=(.*[a-zA-Z]){7,}).{8,}$</changeRegExp>
+            </passwordValidationConfig>
+            <!-- Every customer payout will be decreased for this amount 0.04 is 4% decrease. Omit this field if commission is not applied -->
+            <payoutCommission>0.04</payoutCommission>
+		</jurisdiction>
+		<jurisdiction>
+			<jurisdictionName>SPAIN</jurisdictionName>
+			<minPunterStandbyTimeout>5</minPunterStandbyTimeout>
+			<defaultPunterStandbyTimeout>40</defaultPunterStandbyTimeout>
+			<maxPunterStandbyTimeout>40</maxPunterStandbyTimeout>
+            <currencyOrder>
+                <currency>EUR</currency>
+                <currency>USD</currency>
+            </currencyOrder>
+            <sites>
+                <site type="WEB" url="http://localhost:8404/panbetweb/"/>
+            </sites>
+			<passwordValidationConfig>
+				<checkRegExp>^.{6,}$</checkRegExp>
+				<changeRegExp>^(((?=.*\d{1,})(?=.*[a-z]{1,})(?=.*[A-Z]{1,}))|((?=.*\d{1,})(?=.*[a-z]{1,})(?=.*[_\W]{1,}))|((?=.*[A-Z]{1,})(?=.*[_\W]{1,})(?=.*[a-z]{1,}))|((?=.*\d{1,})(?=.*[A-Z]{1,})(?=.*[_\W]{1,}))).{8,}$</changeRegExp>
+				<lastUniquePasswordCount>10</lastUniquePasswordCount>
+			</passwordValidationConfig>
+            <!--<punterVerifyService>SVJ</punterVerifyService>-->
+		</jurisdiction>
+        <!-- Конфиг для корейской юрисдикции. Настройки скопированы с испанской; regexp для валидации пароля - с curacao.
+        Добавлен для того, чтобы получить настройки валидации пароля, т.к. в full_tests создаются игроки с корейской юрисдикцией.
+        На прод добавлять конфиг не надо. -->
+        <jurisdiction>
+            <jurisdictionName>KOREA</jurisdictionName>
+            <minPunterStandbyTimeout>5</minPunterStandbyTimeout>
+            <defaultPunterStandbyTimeout>40</defaultPunterStandbyTimeout>
+            <maxPunterStandbyTimeout>40</maxPunterStandbyTimeout>
+            <currencyOrder>
+                <currency>KRW</currency>
+                <currency>USD</currency>
+            </currencyOrder>
+            <sites>
+                <site type="WEB" url="http://localhost:8404/panbetweb/"/>
+            </sites>
+            <passwordValidationConfig>
+                <checkRegExp>^.{6,}$</checkRegExp>
+                <changeRegExp>^(?=(.*\d){1,})(?=(.*[a-zA-Z]){7,}).{8,}$</changeRegExp>
+            </passwordValidationConfig>
+        </jurisdiction>
+		<jurisdiction>
+            <jurisdictionName>RUSSIA</jurisdictionName>
+            <minPunterStandbyTimeout>5</minPunterStandbyTimeout>
+            <defaultPunterStandbyTimeout>120</defaultPunterStandbyTimeout>
+            <maxPunterStandbyTimeout>180</maxPunterStandbyTimeout>
+            <sites default="WEB">
+				<site type="WEB" url="http://localhost:8404/panbetweb/"/>
+            </sites>
+            <passwordValidationConfig>
+                <checkRegExp>^.{6,}$</checkRegExp>
+                <changeRegExp>^(?=(.*\d){1,})(?=(.*[a-zA-Z]){7,}).{8,}$</changeRegExp>
+            </passwordValidationConfig>
+        </jurisdiction>
+        <jurisdiction>
+            <jurisdictionName>ITALY</jurisdictionName>
+            <minPunterStandbyTimeout>5</minPunterStandbyTimeout>
+            <defaultPunterStandbyTimeout>120</defaultPunterStandbyTimeout>
+            <maxPunterStandbyTimeout>180</maxPunterStandbyTimeout>
+            <currencyOrder>
+                <currency>EUR</currency>
+            </currencyOrder>
+            <sites default="WEB">
+                <site type="WEB" url="http://localhost:8404/panbetweb/"/>
+                <site type="MOBILE" url="http://localhost:8405/mobile/"/>
+            </sites>
+            <passwordValidationConfig>
+                <checkRegExp>^.{6,}$</checkRegExp>
+                <changeRegExp>^(?=(.*\d){1,})(?=(.*[a-zA-Z]){7,}).{8,}$</changeRegExp>
+            </passwordValidationConfig>
+            <!--<punterVerifyService>PGAD</punterVerifyService>-->
+        </jurisdiction>
+        <jurisdiction>
+            <jurisdictionName>NIGERIA</jurisdictionName>
+            <minPunterStandbyTimeout>5</minPunterStandbyTimeout>
+            <defaultPunterStandbyTimeout>120</defaultPunterStandbyTimeout>
+            <maxPunterStandbyTimeout>180</maxPunterStandbyTimeout>
+            <currencyOrder>
+                <currency>NGN</currency>
+            </currencyOrder>
+            <sites default="WEB">
+                <site type="WEB" url="http://localhost:8404/panbetweb/"/>
+            </sites>
+            <passwordValidationConfig>
+                <checkRegExp>^.{6,}$</checkRegExp>
+                <changeRegExp>^(?=(.*\d){1,})(?=(.*[a-zA-Z]){7,}).{8,}$</changeRegExp>
+            </passwordValidationConfig>
+        </jurisdiction>
+        <jurisdiction>
+            <jurisdictionName>DENMARK</jurisdictionName>
+            <minPunterStandbyTimeout>5</minPunterStandbyTimeout>
+            <defaultPunterStandbyTimeout>120</defaultPunterStandbyTimeout>
+            <maxPunterStandbyTimeout>180</maxPunterStandbyTimeout>
+            <currencyOrder>
+                <currency>DKK</currency>
+                <currency>EUR</currency>
+            </currencyOrder>
+            <sites default="WEB">
+                <site type="WEB" url="http://localhost:8404/panbetweb/"/>
+                <site type="MOBILE" url="http://localhost:8405/mobile/"/>
+            </sites>
+            <passwordValidationConfig>
+                <checkRegExp>^.{6,}$</checkRegExp>
+                <changeRegExp>^(?=(.*\d){1,})(?=(.*[a-zA-Z]){7,}).{8,}$</changeRegExp>
+            </passwordValidationConfig>
+            <!--<punterVerifyService>ROFUS</punterVerifyService>-->
+        </jurisdiction>
+        <jurisdiction>
+            <jurisdictionName>ABS</jurisdictionName>
+            <minPunterStandbyTimeout>5</minPunterStandbyTimeout>
+            <defaultPunterStandbyTimeout>120</defaultPunterStandbyTimeout>
+            <maxPunterStandbyTimeout>180</maxPunterStandbyTimeout>
+            <currencyOrder>
+                <currency>BTC</currency>
+                <currency>BCH</currency>
+                <currency>ETH</currency>
+                <currency>uBTC</currency>
+                <currency>uBCH</currency>
+            </currencyOrder>
+            <sites default="WEB">
+                <site type="WEB" url="http://localhost:8404/panbetweb/"/>
+            </sites>
+            <passwordValidationConfig>
+                <checkRegExp>^.{6,}$</checkRegExp>
+                <changeRegExp>^(?=(.*\d){1,})(?=(.*[a-zA-Z]){7,}).{8,}$</changeRegExp>
+            </passwordValidationConfig>
+        </jurisdiction>
+        <jurisdiction>
+            <jurisdictionName>KAZAKHSTAN</jurisdictionName>
+            <minPunterStandbyTimeout>5</minPunterStandbyTimeout>
+            <defaultPunterStandbyTimeout>120</defaultPunterStandbyTimeout>
+            <maxPunterStandbyTimeout>180</maxPunterStandbyTimeout>
+            <currencyOrder>
+                <currency>KZT</currency>
+            </currencyOrder>
+            <sites default="WEB">
+                <site type="WEB" url="http://localhost:8404/panbetweb/"/>
+            </sites>
+            <passwordValidationConfig>
+                <checkRegExp>^.{6,}$</checkRegExp>
+                <changeRegExp>^(?=(.*\d){1,})(?=(.*[a-zA-Z]){7,}).{8,}$</changeRegExp>
+            </passwordValidationConfig>
+        </jurisdiction>
+	</jurisdictions>
+</sitesConfig>

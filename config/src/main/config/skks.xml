@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skksConfig>
+	<!-- SKKS Enabled flag -->
+	<enabled>true</enabled>
+
+	<!-- Document types for encashment -->
+	<encashmentDocTypes>
+		<int>6</int>
+		<int>7</int>
+	</encashmentDocTypes>
+	
+	<!-- Ignored manual adjustments reasons -->
+	<ignoredManualOperationReasons>
+		<int>933</int>
+		<int>934</int>
+	</ignoredManualOperationReasons>
+	
+	<!-- Errors for retry processing -->
+	<errorsForRetry>
+		<int>86</int>
+	</errorsForRetry>
+
+	<!-- cashSource config -->
+	<cashSources>
+		<!-- WebMoney -->
+		<cashsourceSupport>
+			<type>webMoney</type>
+			<skksCashSourceCode>[WMB]</skksCashSourceCode>
+			<cashOfficeId>4262</cashOfficeId>
+			<terminalType>TERMINAL_ECASH</terminalType>
+			<depositEnable>true</depositEnable>
+			<withdrawEnable>true</withdrawEnable>
+			<manualAdjustmentReasonIds>
+				<int>159</int>
+				<int>115</int>
+			</manualAdjustmentReasonIds>
+		</cashsourceSupport>
+
+		<!-- EasyPay -->
+		<cashsourceSupport>
+			<type>easyPay</type>
+			<skksCashSourceCode>[EasyPay]</skksCashSourceCode>
+			<cashOfficeId>4263</cashOfficeId>
+			<terminalType>TERMINAL_ECASH</terminalType>
+			<depositEnable>true</depositEnable>
+			<withdrawEnable>true</withdrawEnable>
+		</cashsourceSupport>
+
+		<!-- bankCard -->
+		<cashsourceSupport>
+			<type>bankCard</type>
+			<depositEnable>false</depositEnable>
+			<withdrawEnable>true</withdrawEnable>
+		</cashsourceSupport>
+	</cashSources>
+</skksConfig>

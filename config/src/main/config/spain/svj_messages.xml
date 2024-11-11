@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messages>
+	<messages>
+		<entry>
+			<string>La identidad del usuario es incorrecta - TITULAR NO IDENTIFICADO</string>
+			<translations>
+				<translations>
+						<entry>
+							<string>en_GB</string>
+							<string>The identity of the user is incorrect - Unidentified holder</string>
+						</entry>
+				</translations>
+			</translations>
+		</entry>
+		
+		<entry>
+			<string>La identidad del usuario es incorrecta - TITULAR NO IDENTIFICADO POSITIVAMENTE - CIUDADANO NACIONALIZADO ESPAÑOL</string>
+			<translations>
+				<translations>
+						<entry>
+							<string>en_GB</string>
+							<string>The identity of the user is incorrect - Holder not positively identified - Nationalised Spanish Citizen</string>
+						</entry>
+				</translations>
+			</translations>
+		</entry>
+		
+		<entry>
+			<string>La identidad del usuario es incorrecta - El documento solicitado puede estar en trámite de renovación, retenido, retirado por autoridad judicial o anulado por duplicidad</string>
+			<translations>
+				<translations>
+						<entry>
+							<string>en_GB</string>
+							<string>The identity of the user is incorrect - The requested document may be undergoing renewal, retained, withdrawn by the courts or annulled due to duplication</string>
+						</entry>
+				</translations>
+			</translations>
+		</entry>
+		
+		<entry>
+			<string>La identidad del usuario es incorrecta - Se ha encontrado mas de un registro con ese identificador. Este error normalmente aparece en consultas de verificación de identidad usando NIE y se debe a que el NIE consultado tiene más de una filiación en el Registro Central de Extranjeros. Las causas de los cambios de filiación son variados, ya que afectan a cualquiera de los datos de filiación (nombre, apellidos, nombres de padres, país de nacimiento, nacionalidad, fecha de nacimiento, cambio de nacionalidad, ..). Cuando un ciudadano con NIE cambia cualquiera de esos datos, circunstancia que parece que se da con cierta frecuencia, la consulta a ese NIE determinado ofrece el error mencionado.</string>
+			<translations>
+				<translations>
+						<entry>
+							<string>en_GB</string>
+							<string>The identity of the user is incorrect - More than one record with this identifier was found. This error normally appears in identification verification queries using NIEs and is due to the fact that the queried NIE has more than one affiliation in the Central Foreigner Registry. There are various reasons for changes to the affiliation since any one of the affiliation details may have been changed (name, surnames, parents' names, country of birth, nationality, date of birth, change of nationality, etc.). When a NIE-holding citizen changes any of these details (a seemingly common occurrence), the query on that particular NIE returns the above-mentioned error.</string>
+						</entry>
+				</translations>
+			</translations>
+		</entry>
+		
+		<entry>
+			<string>La identidad del usuario es incorrecta - DNI del Titular Anulado</string>
+			<translations>
+				<translations>
+						<entry>
+							<string>en_GB</string>
+							<string>The identity of the user is incorrect - DNI of the holder is annulled</string>
+						</entry>
+				</translations>
+			</translations>
+		</entry>
+		
+		<entry>
+			<string>La identidad del usuario es incorrecta - Documento retirado judicialmente, retenido por existencia de duplicados o anulado por la unidad de documentación de españoles</string>
+			<translations>
+				<translations>
+						<entry>
+							<string>en_GB</string>
+							<string>The identity of the user is incorrect - Document withdrawn by the courts, retained due to the existence of duplicates or annulled by the Spanish documentation unit</string>
+						</entry>
+				</translations>
+			</translations>
+		</entry>
+		
+		
+		<!-- NEW TRANSLITIONS -->
+		<entry>
+			<string>La identidad del usuario es incorrecta - Nombre del titutar incorrecto</string>
+			<translations>
+				<translations>
+					<entry>
+						<string>en_GB</string>
+						<string>The identity of the user is incorrect - Holder's name incorrect</string>
+					</entry>
+				</translations>
+			</translations>
+		</entry>
+		<entry>
+			<string>La identidad del usuario es incorrecta - Primer apellido del titutar incorrecto</string>
+			<translations>
+				<translations>
+					<entry>
+						<string>en_GB</string>
+						<string>The identity of the user is incorrect - Holder's first surname incorrect</string>
+					</entry>
+				</translations>
+			</translations>
+		</entry>
+		<entry>
+			<string>La identidad del usuario es incorrecta - Segundo apellido del titular incorrecto</string>
+			<translations>
+				<translations>
+					<entry>
+						<string>en_GB</string>
+						<string>The identity of the user is incorrect - Holder's second surname incorrect</string>
+					</entry>
+				</translations>
+			</translations>
+		</entry>
+		<entry>
+			<string>La identidad del usuario es incorrecta - Fecha de nacimiento del titular incorrecta</string>
+			<translations>
+				<translations>
+					<entry>
+						<string>en_GB</string>
+						<string>The identity of the user is incorrect - Holder's date of birth incorrect</string>
+					</entry>
+				</translations>
+			</translations>
+		</entry>
+	</messages>
+</messages>

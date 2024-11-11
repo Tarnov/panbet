@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CashOfficeConfig>
+	
+	 <!-- msec -->
+	 <depositDelay>5000</depositDelay> <!-- 60 sec -->
+
+	 <!-- Время, за которое автоматически отменяются 
+	 заказы на выплату. в секундах -->
+	 <payoutCancelDelay>432000</payoutCancelDelay> <!-- 432000 - 5 дней (60*60*25*5) -->
+
+</CashOfficeConfig>

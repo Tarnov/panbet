@@ -1,0 +1,39 @@
+<list>
+    <listener>
+    	<processClass>com.panbet.logic.events.message.EventChangesDependedListener</processClass>
+    </listener>
+    <listener>
+    	<processClass>com.panbet.logic.events.message.EventChangesDependedListener</processClass>
+    	<preProcess>true</preProcess>
+    </listener>
+    <listener>
+    	<processClass>com.panbet.logic.alert.EventChangesUpdateAlertsListener</processClass>
+    </listener>
+    <listener>
+    	<processClass>com.panbet.logic.alert.EventChangesUpdateAlertsListener</processClass>
+    	<preProcess>true</preProcess>
+    </listener>
+    <listener>
+    	<processClass>com.panbet.logic.events.message.EventChangesAlternativeMatchesListener</processClass>
+    </listener>
+    <listener>
+    	<processClass>com.panbet.logic.events.message.EventChangesAlternativeMatchesListener</processClass>
+    	<preProcess>true</preProcess>
+    </listener>
+	<!--listener>
+        <processClass>com.panbet.toto.TotoEventChangesListener</processClass>
+    </listener-->
+	<listener>
+		<processClass>com.panbet.logic.events.message.OutrightEventChangesListener</processClass>
+	</listener>
+    <listener>
+    	<processClass>com.panbet.logic.events.message.EventChangesDependedAmqpListener</processClass>
+    </listener>
+    <listener>
+    	<processClass>com.panbet.logic.events.message.EventChangesDependedKafkaListener</processClass>
+    </listener>
+    <listener>
+    	<processClass>com.panbet.logic.events.interval.EventActiveIntervalChangesListener</processClass>
+    </listener>
+
+</list>

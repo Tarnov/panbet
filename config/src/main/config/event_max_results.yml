@@ -1,0 +1,15 @@
+enabled: true
+# ограничение - максимальное число голов по видам спорта
+# ключ должен соответствовать com.panbet.logic.pattern.command.EPatterns.Types
+maxGoals:
+  Football: 200
+  Basketball: 600
+  IceHockey: 150
+  Bandy: 150
+  Handball: 100
+  WaterPolo: 100
+  Rugby: 250
+  Baseball: 100
+  Futsal: 150
+# дефолтный параметр максимального числа голов, Типы которых отсутствуют в данном конфиге
+defMaxGoals: 1000

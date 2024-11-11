@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BankTransferConfig>
+
+    <!--
+        1) Конфигурация для банк-трансфера делится на блоки с указанием имени юрисдикции:
+            <jurisdiction name="CURACAO">...</jurisdiction>
+
+
+        2) Блок jurisdiction может (но не обязан) содержать настройки комиссии для выплат,
+            все комиссии считаются в дефолтной вылюте:
+            <payoutCommission>
+                комиссии для USD нет
+                <commission>
+                    <currency>USD</currency>
+                    <amount>0</amount>
+                    <threshold>0</threshold>
+                </commission>
+
+                своя комиссия для EUR
+                <commission>
+                    <currency>EUR</currency>
+                    <amount>20</amount>
+                    <threshold>500</threshold>
+                </commission>
+
+                комиссии для USD нет
+                <commission>
+                    <currency>RUB</currency>
+                </commission>
+
+                дефолтная комиссия для остальных валют
+                <defaultCommission>
+                    <amount>35</amount>
+                    <threshold>1000</threshold>
+                </defaultCommission>
+            </payoutCommission>
+        где amount - фиксированная сумма комиссии в дефолтной валюте,
+            а threshold - сумма выплаты, при превышении которой комиссия взиматься не будет.
+        Оба  значения внутри блока defaultCommission обязательны, больше 0 и задаются в дефолтной валюте.
+    -->
+
+    <jurisdiction name="CURACAO">
+
+        <payoutCommission>
+            <commission>
+                <currency>USD</currency>
+                <amount>0</amount>
+                <threshold>0</threshold>
+            </commission>
+
+            <commission>
+                <currency>EUR</currency>
+                <amount>20</amount>
+                <threshold>500</threshold>
+            </commission>
+
+            <commission>
+                <currency>RUB</currency>
+            </commission>
+
+            <defaultCommission>
+                <amount>35</amount>
+                <threshold>1000</threshold>
+            </defaultCommission>
+        </payoutCommission>
+    </jurisdiction>
+
+</BankTransferConfig>

@@ -1,0 +1,53 @@
+<!-- Настройки партнерской системы -->
+<adsConfig>
+    <!-- Необходимо ли конвертировать переходы по старым партнерским ссылкам (Referal) как IncomeAccess -->
+    <convertOldAdsRequestsAsIncomeAccess>false</convertOldAdsRequestsAsIncomeAccess>
+
+    <!--  Список юрисдикций, для которых необходимо запрашивать информацию о мобильных регистрациях из AffiliateService  -->
+    <adsMobileRegistrationJurisdictions>
+        <string>ALDERNEY</string>
+        <string>SPAIN</string>
+        <string>ITALY</string>
+        <string>CURACAO</string>
+        <string>RUSSIA</string>
+    </adsMobileRegistrationJurisdictions>
+
+    <!--
+        Настройки IncomeAccess по юрисдикциям.
+        Параметры:
+        * convertOldAdsSignUpRequests - необходимо ли конвертировать регистрацию игрока,
+          пришедшего по старой партнерской ссылке (Referal), как IncomeAccess;
+    -->
+    <incomeAccessConfigs>
+        <entry>
+            <string>ALDERNEY</string>
+            <incomeAccessConfig>
+                <convertOldAdsSignUpRequests>true</convertOldAdsSignUpRequests>
+            </incomeAccessConfig>
+        </entry>
+        <entry>
+            <string>SPAIN</string>
+            <incomeAccessConfig>
+                <convertOldAdsSignUpRequests>true</convertOldAdsSignUpRequests>
+            </incomeAccessConfig>
+        </entry>
+        <entry>
+            <string>ITALY</string>
+            <incomeAccessConfig>
+                <convertOldAdsSignUpRequests>false</convertOldAdsSignUpRequests>
+            </incomeAccessConfig>
+        </entry>
+        <entry>
+            <string>CURACAO</string>
+            <incomeAccessConfig>
+                <convertOldAdsSignUpRequests>false</convertOldAdsSignUpRequests>
+            </incomeAccessConfig>
+        </entry>
+        <entry>
+            <string>RUSSIA</string>
+            <incomeAccessConfig>
+                <convertOldAdsSignUpRequests>false</convertOldAdsSignUpRequests>
+            </incomeAccessConfig>
+        </entry>
+    </incomeAccessConfigs>
+</adsConfig>

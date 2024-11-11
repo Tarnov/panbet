@@ -1,0 +1,33 @@
+# Общая настройка отключения удаленного запроса данных с внешних площадок
+remoteServiceEnable: false
+# Канал для походов в panbetapi внешних площадок
+channel: APP
+# Таймаут коннекта (в миллисекундах)
+connectionTimeout: 5000
+# Таймаут чтения (в миллисекундах)
+readTimeout: 1000
+# Урлы к panbetapi внешних площадок
+urls:
+  CURACAO: http://panbetapi.local.own:8402/panbetapi/remoting/
+  SPAIN: http://panbetapi.local.own:8402/panbetapi/remoting/
+
+# Настройки загрузки конфигов с внешних площадок
+configService:
+  # Сервис апи конфигов
+  serviceInterface: ConfigService
+  # Время сброса кэша данных (в миллисекундах)
+  cacheExpireTime: 3600000
+  # Список дефолтовых юрисдикций площадок, на которые будут походы за конфигами
+  jurisdictions:
+    - CURACAO
+    - SPAIN
+# Настройки загрузки справочников с внешних площадок
+dictionaryService:
+  # Сервис апи справочников
+  serviceInterface: DictionaryService
+  # Время сброса кэша данных (в миллисекундах)
+  cacheExpireTime: 3600000
+  # Список дефолтовых юрисдикций площадок, на которые будут походы за справочниками
+  jurisdictions:
+    - CURACAO
+    - SPAIN

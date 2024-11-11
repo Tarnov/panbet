@@ -1,0 +1,15 @@
+<!-- External Servers -->
+<list>
+	<externalserver>
+		<url>http://localhost:9090/panbetserver/request</url>
+		<jurisdiction>alderney</jurisdiction>
+		<commandRepeatCount>2</commandRepeatCount>
+		<timeOut>60000</timeOut>
+	</externalserver>
+	<externalserver>
+		<url>http://127.0.0.2:8401/panbetserver/request</url>
+		<jurisdiction>spain</jurisdiction>
+		<commandRepeatCount>2</commandRepeatCount>
+		<timeOut>60000</timeOut>
+	</externalserver>
+</list>

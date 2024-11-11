@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30seconds"> <!--1-->
+
+    <encoder name="default"> <!--2-->
+        <grpcCallLayout> <!--3-->
+            <pattern>%t %a %authority/%incomingHeader{X-Panbet-Channel:-UNKNOWN}/%fullMethodName %callId %callStatus{num}/%callStatus{code} %inMsgCount/%outMsgCount/%inMsgSize/%outMsgSize %callDuration\n</pattern>
+        </grpcCallLayout>
+
+        <grpcMessageLayout> <!--4-->
+            <pattern>%t %a %authority/%incomingHeader{X-Panbet-Channel:-UNKNOWN}/%fullMethodName %callId [%msgDirection] %msgSize\n</pattern>
+        </grpcMessageLayout>
+    </encoder>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender"> <!--5-->
+        <file>${panbetLogs}/accesslog-grpc.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${panbetLogs}/accesslog-grpc.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder-ref ref="default"/>
+    </appender>
+
+    <server captureMessages="true"> <!--6-->
+        <messageAppender-ref ref="FILE"/>
+        <callAppender-ref ref="FILE"/>
+    </server>
+</configuration>
