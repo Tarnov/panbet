@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:mbean-export />
+	<bean id="jdbcLoggerSupport" class="com.panbet.otherutils.jmx.JdbcLoggerSupport" />
+
+	<bean id="datasource" class="org.apache.tomcat.jdbc.pool.DataSource">
+		<property name="url" value="${datasource.url}" />
+		<property name="username" value="${datasource.username}" />
+		<property name="password" value="${datasource.password}" />
+
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+		<property name="connectionProperties"
+			value="disableDefineColumnType=true;
+                   defaultRowPrefetch=150;
+                   oracle.jdbc.useThreadLocalBufferCache=false;
+                   oracle.jdbc.maxCachedBufferSize=100000" />
+
+		<property name="defaultAutoCommit" value="true" />
+		<property name="defaultTransactionIsolation" value="2" />
+		<property name="minIdle" value="${datasource.minIdle:2}" />
+		<property name="maxIdle" value="${datasource.maxIdle:4}" />
+		<property name="initialSize" value="${datasource.initialSize:2}" />
+		<property name="maxActive" value="${datasource.maxActive:10}" />
+		<property name="maxWait" value="${datasource.maxWait:5000}" />
+		<property name="testOnConnect" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="testWhileIdle" value="true" />
+		<property name="validationInterval" value="5000" />
+		<property name="validationQuery" value="select 1 from dual" />
+		<property name="timeBetweenEvictionRunsMillis" value="30000" />
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<property name="removeAbandoned" value="true" />
+		<property name="removeAbandonedTimeout" value="1200" />
+		<property name="logAbandoned" value="true" />
+		<property name="jmxEnabled" value="${datasource.jmxEnabled:false}" />
+		<property name="maxAge" value="14400000" />
+		<property name="jdbcInterceptors" value="com.panbet.db.jdbclogger.JdbcLoggerInterceptor"/>
+	</bean>
+</beans>

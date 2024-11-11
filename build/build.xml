@@ -1,0 +1,416 @@
+<?xml version="1.0"?>
+
+<!--
+Params for all target:
+  artifactsDir  - directory for storing artefacts (program modules, web.war etc)
+  buildVersion  - version to include in MANIFEST.MF
+  panbet.dir    - directory with source code
+  tomcat.dir    - directory with tomcat installation (for redeploy_local), optional
+  server        - directory with custom configs for test server (eg. - trunk), optional
+-->
+<project name="PanbetApplication" default="_redeploySeparateLocal" basedir=".">
+
+    <!-- Список проектов для сборки в реакторе для локального redeploy-я: -->
+    <!--   сервер, panbetapi и веб -->
+    <property name="modulesForLocalRedeploy" value="panbetserver,panbetapi-parent/panbetapi"/>
+
+	<!-- source directory for modules -->
+	<property name="ejbpanbet.dir" location="${panbet.dir}/ejbPanbet" />
+	<property name="panbetGUI-parent.dir" location="${panbet.dir}/panbetGUI-parent" />
+	<property name="panbetGUI.dir" location="${panbetGUI-parent.dir}/panbetGUI" />
+	<property name="ODDSCompiler.dir" location="${panbetGUI-parent.dir}/ODDSCompiler" />
+	<property name="ODDSBot.dir" location="${panbetGUI-parent.dir}/ODDSBot" />
+	<property name="ServiceFeedLoader.dir" location="${panbet.dir}/feedloader" />
+	<property name="test.dir" location="${panbet.dir}/test" />
+	<property name="LiveGameGateWS.dir" location="${panbet.dir}/LiveGameGateWS" />
+	<property name="panbetapi-parent.dir" location="${panbet.dir}/panbetapi-parent" />
+	<property name="panbetgrpcapi-parent.dir" location="${panbet.dir}/panbetgrpcapi-parent" />
+	<property name="panbetserver.dir" location="${panbet.dir}/panbetserver" />
+	<property name="initconfig.dir" location="${panbet.dir}/initconfig" />
+	<property name="softUpdate.dir" location="${panbet.dir}/softUpdate" />
+	<property name="updateconfig.dir" location="${panbet.dir}/updateconfig" />
+	<property name="config.dir" location="${panbet.dir}/config" />
+	<property name="EPService.dir" location="${panbet.dir}/epservice" />
+	<property name="AHService.dir" location="${panbet.dir}/ahservice" />
+	<property name="ODDSService.dir" location="${panbet.dir}/oddsservice" />
+
+	<!-- target directory for artefacts (program modules) -->
+	<property name="client.product.dir" value="${artifactsDir}/client" />
+	<property name="bot.product.dir" value="${artifactsDir}/bot" />
+	<property name="wsconfig.product.dir" value="${artifactsDir}/wsconfig" />
+
+	<!-- used libraries directory -->
+	<property name="dist.dir" location="${panbet.dir}/dist" />
+
+	<!-- Params for Maven -->
+	<property name="mvn.executable" value="mvn" />
+	<property name="ejbPanbet-version" value="1.9-SNAPSHOT" />
+	<property name="mavenProfile" value="default" />
+	<property name="buildNumber" value="DEV" />
+	<property name="buildVersion" value="" />
+	<property name="docker.current.tag" value="local" />
+
+	<property name="initConfigJar" value="initconfig.jar" />
+	<property name="updateConfigJar" value="updateconfig.jar" />
+	<property name="configZip" value="config.zip" />
+
+	<!-- algorithm to generate verification hash for class-files -->
+	<property name="checksum.algorithm" value="md5" />
+    <property name="feedloader.useNativeGit" value="true" />
+
+	<tstamp>
+		<format property="TODAY" pattern="yyyy-MM-dd HH:mm:ss" />
+	</tstamp>
+
+	<target name="_docker_build">
+        <runMavenDir dir="${panbet.dir}" profile="default" goal="docker:build" />
+	</target>
+
+	<target name="_docker_push">
+        <runMavenDir dir="${panbet.dir}" profile="default" goal="docker:push" />
+	</target>
+
+	<target name="_docker_clean">
+		<runMavenDir dir="${panbet.dir}" profile="default" goal="docker:remove" />
+	</target>
+
+	<!-- overall path for compile any module -->
+	<path id="classpath">
+		<fileset dir="${dist.dir}" includes="*.jar" />
+	</path>
+
+	<target name="_clean" depends="_cleanPanbetIntegration">
+		<delete dir="${dist.dir}" />
+		<mkdir dir="${dist.dir}" />
+	</target>
+
+	<target name="_cleanAll" depends="_cleanPanbetIntegration, _cleanRCPProductsIntegration">
+	</target>
+
+	<!--______________________________________________________________________
+    _______________________________REDEPLOY LOCAL__________________________-->
+	<!-- Param: targetApp -->
+	<target name="cleanWebApp">
+		<delete dir="${tomcat.dir}/webapps/${targetApp}" />
+		<delete file="${tomcat.dir}/webapps/${targetApp}.war" />
+	</target>
+	<target name="cleanAllWebApps">
+		<antcall target="cleanWebApp">
+			<param name="targetApp" value="panbetserver" />
+		</antcall>
+		<antcall target="cleanWebApp">
+			<param name="targetApp" value="panbetapi" />
+		</antcall>
+	</target>
+	<target name="replaceWebApp">
+		<copy todir="${tomcat.dir}/webapps" file="${targetWar}" />
+	</target>
+	<target name="replaceSeparateWebApps">
+		<antcall target="cleanAllWebApps" />
+		<antcall target="replaceWebApp">
+			<param name="targetWar" value="${panbetserver.dir}/target/panbetserver.war" />
+		</antcall>
+		<antcall target="replaceWebApp">
+			<param name="targetWar" value="${panbetapi-parent.dir}/panbetapi/target/panbetapi.war" />
+		</antcall>
+	</target>
+
+	<target name="_redeploySeparateLocal" depends="_makePanbetForLocalRedeploy,replaceSeparateWebApps" description="compile web modules and copy war files to tomcat">
+	</target>
+
+	<target name="_redeployApp" depends="_makePanbetForLocalRedeploy,replaceSeparateWebApps" description="compile web modules and copy war files to tomcat">
+		<antcall target="cleanAllWebApps" />
+		<antcall target="replaceWebApp">
+			<param name="targetWar" value="${panbetserver.dir}/target/panbetserver.war" />
+		</antcall>
+	</target>
+
+	<!--________________________END OF REDEPLOY LOCAL______________________-->
+
+	<!--_________________________________________________________________________
+    _______________________________MAKE CLIENT PRODUCT________________________-->
+	<target name="_makeClientProduct" depends="_makeEJBPanbet" description="make ODDSCompiler product to '-Dserver : client.product.dir'">
+		<runPanbetGUIMaven goal="package" profile="ODDSCompiler" />
+
+		<copyODDSCompiler dest="${client.product.dir}" configDest="configuration/config" src="${ODDSCompiler.dir}/product/target/products/com.panbet.ODDSCompiler.product/win32/win32/x86_64"/>
+		<copyODDSCompiler dest="${client.product.dir}_gtk" configDest="configuration/config" src="${ODDSCompiler.dir}/product/target/products/com.panbet.ODDSCompiler.product/linux/gtk/x86_64"/>
+		<copyODDSCompiler dest="${client.product.dir}_cocoa" configDest="Eclipse.app/Contents/Eclipse/configuration/config" src="${ODDSCompiler.dir}/product/target/products/com.panbet.ODDSCompiler.product/macosx/cocoa/x86_64"/>
+	</target>
+
+	<!--_______________________END OF MAKE CLIENT PRODUCT_______________________-->
+
+	<!--_________________________________________________________________________
+    _______________________________MAKE ODSDBot PRODUCT________________________-->
+	<target name="_makeBotProduct" depends="_makeEJBPanbet" description="make ODDSBot product">
+		<runPanbetGUIMaven goal="package" profile="ODDSBot" />
+
+		<copyODDSBot dest="${bot.product.dir}" configDest="configuration/config" src="${ODDSBot.dir}/product/target/products/com.panbet.ODDSBot.product/win32/win32/x86_64"/>
+		<copyODDSBot dest="${bot.product.dir}_gtk" configDest="configuration/config" src="${ODDSBot.dir}/product/target/products/com.panbet.ODDSBot.product/linux/gtk/x86_64"/>
+		<copyODDSBot dest="${bot.product.dir}_cocoa" configDest="Eclipse.app/Contents/Eclipse/configuration/config" src="${ODDSBot.dir}/product/target/products/com.panbet.ODDSBot.product/macosx/cocoa/x86_64"/>
+	</target>
+	<!--_______________________END OF MAKE ODSDBot PRODUCT_______________________-->
+
+	<!--_______________________________MAKE SERVER PRODUCT________________________-->
+
+	<target name="cleanArtefactsDir">
+		<delete dir="${artifactsDir}" />
+		<mkdir dir="${artifactsDir}" />
+	</target>
+
+	<target name="makeWSConfigs">
+		<!-- copy configs for enviroments -->
+		<delete dir="${wsconfig.product.dir}" />
+		<mkdir dir="${wsconfig.product.dir}" />
+	</target>
+
+	<target name="makeRCPProducts" depends="_makeAllPanbet">
+		<runPanbetGUIMaven goal="package" profile="integration" />
+		<antcall target="makeRCPConfigs" />
+	</target>
+
+	<target name="makeRCPConfigs">
+		<copyODDSCompiler dest="${client.product.dir}" configDest="configuration/config" src="${ODDSCompiler.dir}/product/target/products/com.panbet.ODDSCompiler.product/win32/win32/x86_64"/>
+		<copyODDSBot dest="${bot.product.dir}" configDest="configuration/config" src="${ODDSBot.dir}/product/target/products/com.panbet.ODDSBot.product/win32/win32/x86_64"/>
+	</target>
+
+	<target name="_cleanRCPProductsIntegration">
+		<runPanbetGUIMaven goal="clean" profile="integration" />
+	</target>
+
+	<target name="agregateArtefacts" depends="makeWSConfigs,makeRCPConfigs">
+
+		<!-- copy war files -->
+		<copy todir="${artifactsDir}">
+
+			<fileset dir="${panbetserver.dir}/target">
+				<include name="panbetserver.war" />
+			</fileset>
+
+			<fileset dir="${panbetapi-parent.dir}/panbetapi/target">
+				<include name="panbetapi.war" />
+				<include name="panbetapi-dist.zip" />
+			</fileset>
+
+			<fileset dir="${panbetgrpcapi-parent.dir}/panbetapi-grpc/target">
+				<include name="panbetapi-grpc.jar" />
+				<include name="panbetapi-grpc-dist.zip" />
+			</fileset>
+
+            <fileset dir="${LiveGameGateWS.dir}/target">
+                <include name="livegamews.war"/>
+                <include name="livegamews-dist.zip"/>
+            </fileset>
+
+            <fileset dir="${ServiceFeedLoader.dir}/target">
+                <include name="feedloader.jar"/>
+                <include name="feedloader-config.zip"/>
+            </fileset>
+
+            <fileset dir="${config.dir}/target">
+                <include name="*.zip"/>
+            </fileset>
+
+            <fileset dir="${softUpdate.dir}/target">
+                <include name="*.zip"/>
+            </fileset>
+
+            <fileset dir="${test.dir}/target">
+				<include name="*.zip" />
+			</fileset>
+
+			<fileset dir="${EPService.dir}/target">
+				<include name="epservice.war" />
+				<include name="epservice-dist.zip" />
+			</fileset>
+			<fileset dir="${AHService.dir}/target">
+				<include name="ahservice.war" />
+				<include name="ahservice-dist.zip" />
+			</fileset>
+
+			<fileset dir="${ODDSService.dir}/target">
+				<include name="oddsservice.war" />
+				<include name="oddsservice-dist.zip" />
+			</fileset>
+		</copy>
+
+		<!-- create zip archive for artefacts -->
+		<zip destfile="${artifactsDir}/wsconfig.zip" basedir="${wsconfig.product.dir}" />
+		<zip destfile="${artifactsDir}/client.zip" basedir="${client.product.dir}" />
+		<zip destfile="${artifactsDir}/bot.zip" basedir="${bot.product.dir}" />
+	</target>
+
+	<target name="makeServerArtefacts" depends="_clean,cleanArtefactsDir,_makeAllPanbet,makeRCPProducts,agregateArtefacts"/>
+
+	<!--_______________________END OF MAKE SERVER PRODUCT_______________________-->
+
+	<target name="redeployWebService" description="compile Web Service and copy war to tomcat">
+		<delete dir="${tomcat.dir}/webapps/${webServiceWarName}" />
+		<copy todir="${tomcat.dir}/webapps">
+			<fileset dir="${dist.dir}" includes="${webServiceWarName}.war" />
+		</copy>
+	</target>
+
+	<!--_________________________________________________________________________
+        _______________________________MAKE LiveGameWS MODULE______________________-->
+	<target name="_redeployLiveGameGateWS" description="compile LiveGameGate and copy war to tomcat">
+		<antcall target="redeployWebService">
+			<param name="webServiceWarName" value="livegamews" />
+		</antcall>
+	</target>
+	<!--_______________________END OF MAKE LiveGameWS WS MODULE_______________________-->
+
+    <target name="_cleanPanbetIntegration">
+        <runPanbetMaven goal="clean" profile="integration" />
+    </target>
+
+    <macrodef name="copyEJBPanbetForRPC">
+        <sequential>
+            <copy file="${ejbpanbet.dir}/target/ejbPanbet-${ejbPanbet-version}.jar" tofile="${dist.dir}/ejbPanbet.jar" overwrite="true" />
+            <copy file="${ejbpanbet.dir}/target/ejbPanbet-${ejbPanbet-version}.jar" tofile="${panbetGUI.dir}/ejbPanbet.jar" overwrite="true" />
+        </sequential>
+    </macrodef>
+
+    <!-- Собираем в реакторе проекты для локального redeploy-я по списку из modulesForLocalRedeploy -->
+    <target name="_makePanbetForLocalRedeploy">
+        <runMaven goal="package" pom="${panbet.dir}/pom.xml" profile="default">
+            <arg line="--projects ${modulesForLocalRedeploy}" />
+        </runMaven>
+        <copyEJBPanbetForRPC/>
+    </target>
+
+    <target name="_makeEJBPanbet">
+        <runMaven goal="package" pom="${panbet.dir}/pom.xml" profile="default">
+            <arg line="--projects ejbPanbet" />
+        </runMaven>
+        <copyEJBPanbetForRPC/>
+    </target>
+
+    <target name="_makeAllPanbet">
+        <runPanbetMaven goal="package" profile="integration"/>
+        <copyEJBPanbetForRPC/>
+    </target>
+
+	<macrodef name="runPanbetGUIMaven">
+		<attribute name="goal" />
+		<attribute name="profile" />
+		<sequential>
+			<runMaven pom="${panbetGUI-parent.dir}/pom.xml" goal="@{goal}" profile="@{profile}">
+				<arg line="-Dtycho.localArtifacts=ignore" />
+				<arg line="-Dtycho.disableP2Mirrors=true"/>
+			</runMaven>
+		</sequential>
+	</macrodef>
+
+    <macrodef name="runPanbetMaven">
+        <attribute name="goal" />
+        <attribute name="profile" />
+        <sequential>
+        <runMaven pom="${panbet.dir}/pom.xml" goal="@{goal}" profile="@{profile}">
+            <arg line="-DbuildNumber=${buildNumber}" />
+            <arg line="-DbuildVersion=${buildVersion}" />
+            <arg line="-Dfeedloader.useNativeGit=${feedloader.useNativeGit}" />
+        </runMaven>
+        </sequential>
+    </macrodef>
+
+	<macrodef name="runMaven">
+		<attribute name="pom" />
+		<attribute name="goal" />
+		<attribute name="profile" />
+		<element name="args" optional="yes" implicit="yes" />
+		<sequential>
+			<exec executable="${mvn.executable}" failifexecutionfails="true" failonerror="true" newenvironment="false">
+				<arg value="--batch-mode" />
+				<arg line="--file @{pom}" />
+                <arg line="--also-make" />
+				<arg line="-P@{profile}" />
+				<arg line="@{goal}" />
+				<args />
+			</exec>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="runMavenDir">
+		<attribute name="goal" />
+		<attribute name="profile" />
+		<attribute name="dir" />
+		<element name="args" optional="yes" implicit="yes" />
+		<sequential>
+			<exec executable="${mvn.executable}" failifexecutionfails="true" failonerror="true" newenvironment="false" dir="@{dir}">
+				<arg value="--batch-mode" />
+                <arg line="-Ddocker.current.tag=${docker.current.tag}" />
+				<arg line="-DbuildVersion=${buildVersion}" /> 
+                <arg line="--also-make" />
+				<arg line="-P@{profile}" />
+				<arg line="@{goal}" />
+				<args />
+			</exec>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="copyODDSCompiler">
+		<attribute name="src" />
+		<attribute name="dest" />
+		<attribute name="configDest" />
+		
+		<sequential>
+			<!-- delete dirs -->
+			<delete dir="@{dest}" />
+
+			<!-- copy product -->
+			<copy todir="@{dest}">
+				<fileset dir="@{src}" excludes="**/p2/**, **/eclipsec.exe, **/artifacts.xml" />
+			</copy>
+
+			<!-- copy config files -->
+			<copy todir="@{dest}/@{configDest}" overwrite="true">
+				<fileset dir="${ODDSCompiler.dir}/config" includes="log4j-compiler.xml" />
+				<fileset dir="${ODDSCompiler.dir}/config" includes="logback.xml" />
+			</copy>
+			<copy todir="@{dest}/@{configDest}/properties/" overwrite="true">
+				<fileset dir="${ODDSCompiler.dir}/config/properties/" includes="bets.properties" />
+				<fileset dir="${ODDSCompiler.dir}/config/properties/" includes="changes.properties" />
+				<fileset dir="${ODDSCompiler.dir}/config/properties/" includes="config.properties" />
+				<fileset dir="${ODDSCompiler.dir}/config/properties/" includes="services.properties" />
+				<fileset dir="${ODDSCompiler.dir}/config/properties/" includes="servicesDefault.properties" />
+				<fileset dir="${ODDSCompiler.dir}/config/properties/" includes="sip.properties" />
+			</copy>
+			<copy todir="@{dest}/@{configDest}/properties/css" overwrite="true">
+				<fileset dir="${ODDSCompiler.dir}/config/properties/css" includes="alderney.css" />
+				<fileset dir="${ODDSCompiler.dir}/config/properties/css" includes="belarus.css" />
+				<fileset dir="${ODDSCompiler.dir}/config/properties/css" includes="curacao.css" />
+				<fileset dir="${ODDSCompiler.dir}/config/properties/css" includes="denmark.css" />
+				<fileset dir="${ODDSCompiler.dir}/config/properties/css" includes="italy.css" />
+				<fileset dir="${ODDSCompiler.dir}/config/properties/css" includes="nigeria.css" />
+				<fileset dir="${ODDSCompiler.dir}/config/properties/css" includes="russia.css" />
+				<fileset dir="${ODDSCompiler.dir}/config/properties/css" includes="spain.css" />
+				<fileset dir="${ODDSCompiler.dir}/config/properties/css" includes="jurisdictioncolor.css" />
+			</copy>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="copyODDSBot">
+		<attribute name="src" />
+		<attribute name="dest" />
+		<attribute name="configDest" />
+		
+		<sequential>
+			<!-- delete dirs -->
+			<delete dir="@{dest}" />
+
+			<!-- copy product -->
+			<copy todir="@{dest}">
+				<fileset dir="@{src}" excludes="**/p2/**, **/eclipsec.exe, **/artifacts.xml" />
+			</copy>
+
+			<!-- copy config files -->
+			<copy todir="@{dest}/@{configDest}" overwrite="true">
+				<fileset dir="${ODDSBot.dir}/config" includes="**/*" />
+			</copy>
+			<copy todir="@{dest}/@{configDest}/properties/" overwrite="true">
+				<fileset dir="${ODDSBot.dir}/config/properties/" includes="changes.properties" />
+				<fileset dir="${ODDSBot.dir}/config/properties/" includes="config.properties" />
+			</copy>
+		</sequential>
+	</macrodef>
+</project>

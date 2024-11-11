@@ -1,0 +1,23 @@
+<configuration scan="true" scanPeriod="30 seconds">
+	<appender name="FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${ahserviceLogs}/ahservice-lb.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${ahserviceLogs}/ahservice-lb.log.%d{yyyy-MM-dd}</fileNamePattern>
+			<maxHistory>1</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d [%thread] %-5level %logger{35} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<logger name="com.panbet.ahservice" level="DEBUG" additivity="false">
+		<appender-ref ref="FILE" />
+	</logger>
+	
+	
+	<root level="INFO">
+		<appender-ref ref="FILE" />
+	</root>
+</configuration> 
+

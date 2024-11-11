@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:annotation-config />
+	<context:property-placeholder ignore-unresolvable="true" location="file:${ahserviceConfig}/ahservice.properties,
+	file:${ahserviceConfig}/datasource.properties, file:${ahserviceConfig}/punter.properties, file:${ahserviceConfig}/kingsdream.properties"  system-properties-mode="FALLBACK"/>
+
+	<!-- TODO: PAN-63827 Убрать вместе с появлением spring-boot в ahservice  -->
+	<bean id="propertySourcesPlaceholderConfigurer"
+		  class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>file:${ahserviceConfig}/ahservice.properties</value>
+				<value>file:${ahserviceConfig}/datasource.properties</value>
+				<value>file:${ahserviceConfig}/punter.properties</value>
+				<value>file:${ahserviceConfig}/kingsdream.properties</value>
+			</list>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders" value="true"/>
+		<property name="ignoreResourceNotFound" value="true"/>
+		<property name="localOverride" value="false"/>
+	</bean>
+
+	<bean class="com.panbet.ahservice.context.ConfigurationPropertiesEnabler"/>
+
+	<bean id="globalNamesConfig" class="com.panbet.otherutils.service.GlobalNamesConfigurer" />
+	
+	<bean id="serviceLocator" class="com.panbet.common.services.ServiceLocator" factory-method="getInstance"
+          depends-on="serviceLocatorData">
+		<property name="commandProxy" ref="commandProxy" />
+	</bean>
+
+    <bean id="serviceLocatorData" class="com.panbet.common.services.ServiceLocatorData" factory-method="getInstance">
+        <property name="globalProperties" value="#{globalNamesConfig.getGlobalNames()}"/>
+        <property name="configManager" ref="configManager"/>
+    </bean>
+	
+	<bean id="commandFactory" class="com.panbet.core.reflection.CommandFactory">
+		<constructor-arg value="${serverChannel}" />
+	</bean>
+	
+	<bean id="commandExecutor" class="com.panbet.core.reflection.RemoteCommandExecutor">
+		<!-- String commandURL -->
+		<constructor-arg type="java.lang.String" value="${serverUrl}" />
+		<constructor-arg type="boolean" value="true" />
+		<constructor-arg type="int" value="${timeout}" />
+		<constructor-arg type="int" value="${connections}" />
+	</bean>
+	
+	<bean id="commandProxy" class="com.panbet.common.services.CommandProxy">
+		<constructor-arg ref="commandFactory" />
+		<constructor-arg ref="commandExecutor" />
+		<constructor-arg type="int" value="1" />
+	</bean>
+	
+	<bean id="systemSetup" class="com.panbet.jmx.mbean.SystemSetup">
+		<property name="globalProperties" value="#{globalNamesConfig.getGlobalNames()}" />
+	</bean>
+	
+	<import resource="datasourceContext.xml" />
+	<import resource="dataContext.xml" />
+	
+	<bean id="manifestReader" class="com.panbet.otherutils.ManifestReader"/>
+	
+	<bean id="statusServlet" class="com.panbet.ahservice.status.AhserviceStatusServlet">
+		<property name="manifestReader" ref="manifestReader"/>
+	</bean>
+
+	<bean id="depositWithdrawalsSummaryService" class="com.panbet.logic.account.DepositWithdrawalsSummaryBusinessService">
+		<property name="accountDAO" ref="accountDAO"/>
+		<property name="punterAO" ref="punterAO"/>
+		<property name="replicationBetPunterHolder" ref="replicationBetPunterHolder"/>
+	</bean>
+
+	<bean class="com.panbet.kingsdream.v1.api.SpringKdDefinition">
+		<property name="appName" value="ahservice"/>
+		<property name="kafkaBootstrapServer" value="${kafka.bootstrap-server}"/>
+		<property name="kafkaUsername" value="${kafka.username}"/>
+		<property name="kafkaPassword" value="${kafka.password}"/>
+		<property name="metricPublisherEnabled" value="${metric-publisher.enabled}"/>
+		<property name="jmxPublisherEnabled" value="${jmx-publisher.enabled}"/>
+		<property name="jvmPublisherEnabled" value="${jvm-publisher.enabled}"/>
+		<property name="metricProducerEnabled" value="${metric-producer.enabled}"/>
+		<property name="threadProducerEnabled" value="${thread-producer.enabled}"/>
+		<property name="threadPublisherKafkaEnabled" value="${thread-publisher.kafka-enabled}"/>
+	</bean>
+	
+	<bean id="configManager" class="com.panbet.core.global.ConfigManager" factory-method="getInstance"/>
+    
+    <context:component-scan base-package="com.panbet.currency"/>
+</beans>

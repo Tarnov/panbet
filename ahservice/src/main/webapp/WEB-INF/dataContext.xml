@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean id="paramsDAO" class="com.panbet.otherutils.dao.ParamsLocalDAOOracle">
+		<property name="dataSource" ref="datasource"/>
+	</bean>
+	
+	<bean name="priceTypeDAO" class="com.panbet.otherutils.dao.PriceTypeLocalDAOOracle">
+		<property name="dataSource" ref="datasource"/>
+	</bean>
+
+	<bean id="priceTypeAO" class="com.panbet.otherutils.ao.PriceTypeLocalAO">
+		<property name="priceTypeDAO" ref="priceTypeDAO"/>
+	</bean>
+
+	<bean name="punterGenderDAO" class="com.panbet.otherutils.dao.PunterGenderLocalDAOOracle">
+		<property name="dataSource" ref="datasource"/>
+	</bean>
+
+	<bean id="punterGenderAO" class="com.panbet.otherutils.ao.PunterGenderLocalAO">
+		<property name="punterGenderDAO" ref="punterGenderDAO"/>
+	</bean>
+
+	<bean name="punterAuthTypeDAO" class="com.panbet.otherutils.dao.PunterAuthTypeLocalDAOOracle">
+		<property name="dataSource" ref="datasource"/>
+	</bean>
+
+	<bean id="punterAuthTypeAO" class="com.panbet.otherutils.ao.PunterAuthTypeLocalAO">
+		<property name="punterAuthTypeDAO" ref="punterAuthTypeDAO"/>
+	</bean>
+
+	<bean class="com.panbet.globaldictionaries.GlobalDictionariesConnectionConfig"/>
+	<bean class="com.panbet.globaldictionaries.GlobalLocaleDictionaryConfig"/>
+
+	<bean id="punterDAO" class="com.panbet.otherutils.dao.PunterLocalDAOOracle">
+		<property name="dataSource" ref="datasource" />
+		<property name="priceTypeAO" ref="priceTypeAO"/>
+		<property name="punterGenderAO" ref="punterGenderAO"/>
+		<property name="punterAuthTypeAO" ref="punterAuthTypeAO"/>
+		<property name="identityDAO">
+			<bean class="com.panbet.otherutils.dao.IdentityDummyDAO"/>
+		</property>
+		<property name="localeAO" ref="localeAO"/>
+	</bean>
+	
+	<bean id="punterAO" class="com.panbet.ahservice.common.data.PunterBaseLocalAO" />
+	
+	<bean id="currencyAO" class="com.panbet.otherutils.model.CurrencyFindLocalAO">
+        <property name="paramsDAO" ref="paramsDAO" />
+        <property name="dictionaryDAO" ref="dictionaryDAO" />
+    </bean>
+	
+	<bean id="currencyRateAO" class="com.panbet.ahservice.common.model.CurrencyRateNotCachedAO" />
+	
+	<bean id="currencyHelperBean" class="com.panbet.logic.currency.CurrencyHelperBean" />
+	
+	<bean id="paymentGatewayAccessService" class="com.panbet.ahservice.common.dao.PaymentGatewayAccessServiceImpl" depends-on="commandProxy"/>
+	
+	<bean id="punterStatisticService" class="com.panbet.logic.punter.PunterStatisticServiceImpl">
+		<property name="punterStatisticDAO" ref="punterStatisticDAO" />
+		<property name="replicationBetPunterHolder" ref="replicationBetPunterHolder" />
+	</bean>
+	
+	<bean id="replicationBetPunterHolder" class="com.panbet.otherutils.model.ReplicationBetPunterHolderLocal">
+		<property name="commandProxy" ref="commandProxy" />
+		<property name="replicationBetPunterIdExpireSec" value="${replicationbet.punterid.expire.sec:#{300}}" />
+	</bean>
+	
+	<bean id="accountDAO" class="com.panbet.ahservice.common.dao.AccountLocalDAOOracle">
+		<property name="dataSource" ref="datasource" />
+		<property name="loadTransactionWebViewWithProperties"
+				  value="${paysys.load-transaction-web-with-properties:false}" />
+	</bean>
+	
+	<bean id="dictionaryDAO" class="com.panbet.otherutils.dao.DictionaryLocalDAOOracle">
+		<property name="dataSource" ref="datasource" />
+	</bean>
+	
+	<bean id="currencyRateDAO" class="com.panbet.otherutils.dao.CurrencyRateLocalDAOOracle">
+		<property name="dataSource" ref="datasource"/>	
+	</bean>
+
+	<bean id="punterStatisticDAO" class="com.panbet.ahservice.common.dao.PunterStatisticLocalDAOOracle">
+		<property name="dataSource" ref="datasource"/>	
+	</bean>
+	
+</beans>

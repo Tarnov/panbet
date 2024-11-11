@@ -1,0 +1,51 @@
+<web-app>
+	<display-name>Panbet Money History service</display-name>	
+	<context-param>
+		<param-name>logbackConfigLocation</param-name>
+		<param-value>file:${ahserviceConfig}/logback.xml</param-value>
+	</context-param>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/applicationContext.xml</param-value>
+    </context-param>
+
+	<listener>
+		<listener-class>com.panbet.otherutils.spring.LogbackConfigListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<!-- !!! MUST BE FIRST FOR DEBUG PURPOSE !!! -->
+	<filter>
+		<filter-name>ServletFilter</filter-name>
+		<filter-class>com.panbet.ahservice.filter.ServletFilter</filter-class>
+	</filter>
+    <filter-mapping>
+		<filter-name>ServletFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+    </filter-mapping>
+	
+    <servlet>
+		<servlet-name>statusServlet</servlet-name>
+		<servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>statusServlet</servlet-name>
+		<url-pattern>/status</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Entry point for remotely call services through Hessian -->
+	<servlet>
+		<servlet-name>remoting</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>remoting</servlet-name>
+		<url-pattern>/remoting/*</url-pattern>
+	</servlet-mapping>
+</web-app>
